@@ -54,4 +54,15 @@ public class MyTestCase {
         String now = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
         System.out.println(now);
     }
+
+    @Test
+    public void testSubString(){
+
+        String headerValue = "form-data;name=\"doc\";filename=\"images.jpg\"";
+
+        headerValue = headerValue.substring(headerValue.indexOf("filename=\""));
+        headerValue = headerValue.substring(headerValue.indexOf("\"")+1,headerValue.length()-1);
+        System.out.println(headerValue);
+
+    }
 }
