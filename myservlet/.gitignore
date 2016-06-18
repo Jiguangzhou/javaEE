@@ -1,0 +1,5 @@
+.idea
+target
+.gitignore
+myservlet.iml
+config.properties
