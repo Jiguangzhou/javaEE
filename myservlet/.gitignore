@@ -1,4 +1,5 @@
 .idea
 config.properties
 target
+.gitignore
 myservlet.iml
