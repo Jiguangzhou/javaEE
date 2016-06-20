@@ -61,7 +61,7 @@ public class CommentFileUploadServlet extends HttpServlet {
                         documentService.updateFile(fileName, size, fileItem.getInputStream());
                     }
                 }
-
+                resp.sendRedirect("/file/list");
             } catch (FileUploadException e) {
                 e.printStackTrace();
             }

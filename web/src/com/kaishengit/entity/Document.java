@@ -66,5 +66,20 @@ public class Document {
         this.displaysize = displaysize;
     }
 
+    public boolean isPreview(){
+        if (getFilename()==null){
+            return true;
+        }
+        if (getFilename().endsWith(".jpg")
+                ||getFilename().endsWith(".png")
+                ||getFilename().endsWith(".pdf")
+                ||getFilename().endsWith(".bmp")
+                ||getFilename().endsWith("jpeg")
+                ||getFilename().endsWith(".gif")
+                ){
+            return true;
+        }
+            return false;
+    }
 
 }
