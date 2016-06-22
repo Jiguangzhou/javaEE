@@ -6,28 +6,31 @@
     <title>Document</title>
 </head>
 <body>
-<button id="btn">Ajax发送post请求</button>
+<button id="getBtn">发出get请求</button>
+<button id="btn">发出post请求</button>
+<script src="/static/js/ajax.js"></script>
 <script>
-    (function () {
-        function createXmlHttp() {
-
-            var xmlHttp = null;
-            if (window.ActiveXObject) {
-                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
-            } else {
-                xmlHttp = new XMLHttpRequest();
-            }
-            return xmlHttp;
+    (function(){
+        function sayHello(arg1,arg2) {
+            alert(arguments.length);
         }
-        document.querySelector("#btn").onclick = function () {
-            var xmlHttp = createXmlHttp();
-            xmlHttp.open("post","/checkusername",true);
-            xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-            xmlHttp.send("name=汤姆&address=中国");
+        document.querySelector("#getBtn").onclick = function(){
+            Ajax.getText("/ajax",function(result){
+                alert("Hi," + result);
+            });
         };
-    })();  
+        document.querySelector("#btn").onclick = function(){
+            Ajax.postText("/ajax",{name:"java",address:"USA"},function(result){
+                alert("Post:" + result);
+            })
+        };
+        /*document.querySelector("#btn").onclick = function(){
+         var xmlHttp = createXmlHttp();
+         xmlHttp.open("post","/ajax",true);
+         xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+         xmlHttp.send("name=汤姆&address=USA");
+         };*/
+    })();
 </script>
-
-
 </body>
 </html>
