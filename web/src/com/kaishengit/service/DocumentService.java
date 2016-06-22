@@ -17,7 +17,7 @@ public class DocumentService {
     public void updateFile(String fileName,Long size,InputStream inputStream)throws IOException{
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(IOUtils.toByteArray(inputStream));
         String md5 = DigestUtils.md5Hex(byteArrayInputStream);
-
+        //根据MD5去数据库查询是否已经有文件存在
         Document document = documentDao.findByMd5(md5);
         if (document == null){
 
@@ -38,7 +38,7 @@ public class DocumentService {
     private String saveFile(String fileName,InputStream inputStream) throws IOException {
 
         inputStream.reset();
-        File dir = new File("E:/opensource");
+        File dir = new File("E:/data");
         if (!dir.exists()) {
             dir.mkdir();
         }

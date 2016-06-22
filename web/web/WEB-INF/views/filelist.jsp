@@ -35,7 +35,7 @@
                         <td>${doc.displaysize}</td>
                         <td>${doc.md5}</td>
                         <td>
-                        <a href="">下载</a>
+                            <a href="/preview?file=${doc.md5}&down=true">下载</a>
                             <c:if test="${doc.preview}">
                                 <a target="_blank" href="/preview?file=${doc.md5}">预览</a>
                             </c:if>

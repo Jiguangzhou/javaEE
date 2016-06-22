@@ -68,7 +68,7 @@ public class Document {
 
     public boolean isPreview(){
         if (getFilename()==null){
-            return true;
+            return false;
         }
         if (getFilename().endsWith(".jpg")
                 ||getFilename().endsWith(".png")
