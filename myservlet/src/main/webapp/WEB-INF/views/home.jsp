@@ -39,7 +39,7 @@
         <div class="panel-footer text-right">
 
             <ul class="pagination" id="page"></ul>
-            >
+
             <%--<ul class="pagination" style="margin: 0px">
                 <c:choose>
                     <c:when test="${page.pageNo==1}">
