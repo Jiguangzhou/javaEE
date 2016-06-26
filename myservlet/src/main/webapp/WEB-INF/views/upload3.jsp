@@ -19,8 +19,8 @@
                 <input type="file" name="doc" class="form-control">
                 <button class="btn btn-primary">保存</button>
             </div>
-    </div>
     </form>
+    </div>
 
 </div>
 </body>

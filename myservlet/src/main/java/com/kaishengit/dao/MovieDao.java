@@ -20,6 +20,16 @@ public class MovieDao {
         return DbHelp.query(sql,new BeanListHandler<>(Movie.class),start,size);
 
     }
+    public void save(Movie movie){
+        String sql = "INSERT INTO douban_movie(title,rate,releaseyear,sendtime,daoyan,jianjie) values(?,?,?,?,?,?)";
+        DbHelp.update(sql,movie.getTitle(),movie.getRate(),movie.getReleaseyear(),movie.getSendtime(),movie.getDaoyan(),movie.getJianjie());
+    }
+
+    public Movie findMovieByTitle(String title) {
+        String sql = "select * from douban_movie where title = ?";
+
+        return DbHelp.query(sql,new BeanHandler<>(Movie.class),title);
+    }
 
     public Long count(){
         String sql = "select count(*) from movie";

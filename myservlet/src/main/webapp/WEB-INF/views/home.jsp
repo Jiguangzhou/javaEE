@@ -21,6 +21,7 @@
                     <th>导演</th>
                     <th>发行时间</th>
                     <th>上映时间</th>
+                    <th>操作列表</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,13 @@
                         <td>${movie.daoyan}</td>
                         <td>${movie.releaseyear}</td>
                         <td>${movie.sendtime}</td>
+                        <td>
+                            <a href="/servlet/upload" class="btn btn-xs btn-success">上传</a>
+                            <a href="/preview?movie=${movie.title}&down=true">下载</a>
+                            <%--<c:if test="${movie.preview}">--%>
+                                <%--<a target="_blank" href="/preview?file=${movie.title}">预览</a>--%>
+                            <%--</c:if>--%>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

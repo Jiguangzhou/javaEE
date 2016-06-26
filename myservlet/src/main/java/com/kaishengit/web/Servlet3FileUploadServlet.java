@@ -1,7 +1,7 @@
 package com.kaishengit.web;
 
 
-import com.kaishengit.service.DocumentService;
+import com.kaishengit.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,8 +41,8 @@ public class Servlet3FileUploadServlet extends HttpServlet {
         logger.debug("size:{}",part.getSize());
         InputStream input = part.getInputStream();
 
-        DocumentService documentService = new DocumentService();
-        documentService.updateFile(getFileName(part),part.getSize(),input);
+        MovieService movieService = new MovieService();
+        movieService.updateFile(getFileName(part),part.getSize(),input);
 
 
 //        String cotentType = part.getContentType();

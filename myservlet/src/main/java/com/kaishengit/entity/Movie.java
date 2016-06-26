@@ -78,4 +78,20 @@ public class Movie {
                 ", jianjie='" + jianjie + '\'' +
                 '}';
     }
+    public boolean isPreview(){
+        if (getTitle()==null){
+            return false;
+        }
+        if (getTitle().endsWith(".avi")
+                ||getTitle().endsWith(".rm")
+                ||getTitle().endsWith(".mp4")
+                ||getTitle().endsWith(".flv")
+                ||getTitle().endsWith("rmvb")
+                ||getTitle().endsWith(".wav")
+                ){
+            return true;
+        }
+        return false;
+    }
+
 }
