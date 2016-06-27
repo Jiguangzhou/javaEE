@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mapper.UserMapper">
+
+    <!--
+        public void findById(Integer id){}
+         int Integer -> Integer
+         _int -> int
+         id:类似方法名字
+         parameterType:方法传入参数的类型
+         resultType:方法返回的类型(要写pojo的完全限定名和类名)
+    -->
+
+    <select id="findById" parameterType="int" resultType="com.kaishengit.pojo.User">
+        SELECT id,username,address,password FROM t_user WHERE id = #{id}
+    </select>
+
+    <!--save(User user)-->
+    <insert id="save" parameterType="com.kaishengit.pojo.User">
+        INSERT INTO t_user(username, address, password) VALUES (#{username},#{address},#{password})
+    </insert>
+
+    <!--update-->
+    <update id="update" parameterType="com.kaishengit.pojo.User">
+        UPDATE t_user SET address = #{address},password = #{password} WHERE id = #{id}
+    </update>
+</mapper>
