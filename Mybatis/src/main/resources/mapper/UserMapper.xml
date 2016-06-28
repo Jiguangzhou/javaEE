@@ -13,17 +13,57 @@
          resultType:方法返回的类型(要写pojo的完全限定名和类名)
     -->
 
-    <select id="findById" parameterType="int" resultType="com.kaishengit.pojo.User">
+    <select id="findById" parameterType="int" resultType="User">
         SELECT id,username,address,password FROM t_user WHERE id = #{id}
     </select>
 
     <!--save(User user)-->
-    <insert id="save" parameterType="com.kaishengit.pojo.User">
+    <insert id="save" parameterType="User">
         INSERT INTO t_user(username, address, password) VALUES (#{username},#{address},#{password})
     </insert>
 
     <!--update-->
-    <update id="update" parameterType="com.kaishengit.pojo.User">
+    <update id="update" parameterType="User">
         UPDATE t_user SET address = #{address},password = #{password} WHERE id = #{id}
     </update>
+
+    <!--delete-->
+    <delete id="del" parameterType="int">
+        DELETE FROM t_user WHERE id = #{id}
+    </delete>
+
+    <!--findAll-->
+    <select id="findAll" resultType="User">
+        SELECT * FROM t_user
+    </select>
+
+    <select id="findByMap" parameterType="map" resultType="User">
+        SELECT * FROM t_user WHERE username = #{username} and password = #{password}
+    </select>
+
+    <select id="findByParams" resultType="User">
+        SELECT * FROM t_user WHERE username = #{username} and password = #{password}
+        <!-- SELECT * FROM t_user WHERE username = #{param1} and password = #{param2}-->
+    </select>
+
+    <select id="findByQueryParam" parameterType="map" resultType="User">
+        SELECT * FROM t_user
+        <where>
+            <if test="username != null and username != ''">
+                username = #{username}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByPage" resultType="User">
+        SELECT * FROM t_user limit ${start},${size}
+    </select>
+
+
 </mapper>

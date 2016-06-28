@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 public class MyBatisTestCase {
 
@@ -79,8 +80,26 @@ public class MyBatisTestCase {
         sqlSession.close();
     }
 
-
+    @Test
     public void testDel(){
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        sqlSession.delete("com.kaishengit.mapper.UserMapper.del",4);
+
+        sqlSession.commit();
+        sqlSession.close();
+
 
     }
+
+    @Test
+    public void testfindAll(){
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        List<User> userList = sqlSession.selectList("com.kaishengit.mapper.UserMapper.findAll");
+        for(User user:userList){
+            logger.debug("{}",user);
+        }
+        sqlSession.close();
+        Assert.assertEquals(4,userList.size());
+    }
+
 }

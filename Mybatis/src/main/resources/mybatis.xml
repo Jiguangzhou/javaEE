@@ -3,6 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+
+    <!--注册别名-->
+    <typeAliases>
+        <typeAlias type="com.kaishengit.pojo.User" alias="User"/>
+    </typeAliases>
+
     <!--环境-->
     <environments default="dev">
         <environment id="dev">
@@ -33,6 +39,7 @@
     <!--加载mapper文件-->
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/NodeMapper.xml"/>
     </mappers>
 
 </configuration>
