@@ -2,6 +2,7 @@ package com.kaishengit.test;
 
 import com.google.common.collect.Maps;
 import com.kaishengit.mapper.UserMapper;
+import com.kaishengit.pojo.Tag;
 import com.kaishengit.pojo.User;
 import com.kaishengit.util.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -22,9 +23,13 @@ public class MyBatisInterfaceTestCase {
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
 
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = userMapper.findById(6);
+        User user = userMapper.findById(2);
         logger.debug("{}",user);
 
+        List<Tag> tagList = user.getTagList();
+        for(Tag tag:tagList){
+            logger.debug("Tag:{}",tag);
+        }
         sqlSession.close();
         Assert.assertNotNull(user);
     }
@@ -129,7 +134,7 @@ public class MyBatisInterfaceTestCase {
     public void testfindByPage(){
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        List<User> userList = userMapper.findByPage("0","2");
+        List<User> userList = userMapper.findByPage(0,2);
         for (User user:userList){
             logger.debug("{}",user);
         }

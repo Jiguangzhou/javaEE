@@ -8,4 +8,6 @@ public interface NodeMapper {
 
     void batchSave(List<Node> nodeList);
     List<Node> findByIds(List<Integer> idList);
+
+    Node findById(Integer id);
 }

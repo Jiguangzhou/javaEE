@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mapper.MovieMapper">
+    <select id="findById" parameterType="int" resultType="Movie" resultMap="movieMap">
+        SELECT t_movie.*,t_user.username,t_user.address,t_node.nodename FROM t_movie
+        INNER JOIN t_user ON t_movie.userid = t_user.id
+        INNER JOIN t_node ON t_movie.nodeid = t_node.id
+        WHERE t_movie.id = #{id}
+
+
+        <!--SELECT t_user.username as 'user.username',t_user.address as 'user.address',
+        t_node.nodename as 'node.nodename' FROM t_movie
+        INNER JOIN t_user ON t_movie.userid = t_user.id
+        INNER JOIN t_node ON t_movie.nodeid = t_node.id
+        WHERE t_movie.id = #{id} -->
+    </select>
+    <resultMap id="movieMap" type="com.kaishengit.pojo.Movie">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="rate" property="rate"/>
+        <result column="releaseyear" property="releaseyear"/>
+        <result column="sendtime" property="sendtime"/>
+        <result column="daoyan" property="daoyan"/>
+        <result column="jianjie" property="jianjie"/>
+        <result column="userid" property="userid"/>
+        <result column="nodeid" property="nodeid"/>
+        <association property="user" javaType="com.kaishengit.pojo.User" column="userid">
+            <id column="userid" property="id"/>
+            <result column="username" property="username"/>
+            <result column="address" property="address"/>
+        </association>
+        <association property="node" javaType="com.kaishengit.pojo.Node" column="nodeid">
+            <id column="nodeid" property="id"/>
+            <result column="nodename" property="nodename"/>
+        </association>
+    </resultMap>
+</mapper>

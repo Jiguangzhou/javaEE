@@ -13,9 +13,23 @@
          resultType:方法返回的类型(要写pojo的完全限定名和类名)
     -->
 
-    <select id="findById" parameterType="int" resultType="User">
-        SELECT id,username,address,password FROM t_user WHERE id = #{id}
+    <select id="findById" parameterType="int" resultType="User" resultMap="userMap">
+        SELECT t_user.id,username,address,password,t_tag.tagname,t_tag.id as 'tagid'
+        FROM t_user
+        INNER JOIN t_tag ON t_tag.userid = t_user.id
+        where t_user.id = #{id}
     </select>
+    
+    <resultMap id="userMap" type="com.kaishengit.pojo.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="address" property="address"/>
+        <result column="password" property="address"/>
+        <collection property="tagList" ofType="com.kaishengit.pojo.Tag">
+            <id column="tagid" property="id"/>
+            <result column="tagname" property="tagname"/>
+        </collection>
+    </resultMap>
 
     <!--save(User user)-->
     <insert id="save" parameterType="User">
@@ -24,7 +38,12 @@
 
     <!--update-->
     <update id="update" parameterType="User">
-        UPDATE t_user SET address = #{address},password = #{password} WHERE id = #{id}
+        UPDATE t_user
+        <set>
+        address = #{address},
+        password = #{password}
+        </set>
+         WHERE id = #{id}
     </update>
 
     <!--delete-->
@@ -48,21 +67,34 @@
 
     <select id="findByQueryParam" parameterType="map" resultType="User">
         SELECT * FROM t_user
-        <where>
+        <trim prefix="where" prefixOverrides="and|or">
             <if test="username != null and username != ''">
                 username = #{username}
             </if>
-            <if test="address != null and address != ''">
-                and address = #{address}
-            </if>
-            <if test="password != null and password != ''">
-                and password = #{password}
-            </if>
-        </where>
+
+            <!--二选一-->
+            <choose>
+                <when test="address != null and address != ''">
+                    and address = #{address}
+                </when>
+                <when test="password != null and password != ''">
+                    and password = #{password}
+                </when>
+                <otherwise>
+                    and 1 = 1
+                </otherwise>
+            </choose>
+            <!--<if test="address != null and address != ''">-->
+                <!--and address = #{address}-->
+            <!--</if>-->
+            <!--<if test="password != null and password != ''">-->
+                <!--and password = #{password}-->
+            <!--</if>-->
+        </trim>
     </select>
 
     <select id="findByPage" resultType="User">
-        SELECT * FROM t_user limit ${start},${size}
+        SELECT * FROM t_user limit #{start},#{size}
     </select>
 
 

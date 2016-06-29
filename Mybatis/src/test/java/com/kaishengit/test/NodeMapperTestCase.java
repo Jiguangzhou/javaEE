@@ -35,6 +35,8 @@ public class NodeMapperTestCase {
 
     @Test
     public void testfindByIds(){
+
+
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
 
         NodeMapper nodeMapper = sqlSession.getMapper(NodeMapper.class);
@@ -45,6 +47,28 @@ public class NodeMapperTestCase {
             logger.debug("{}",node);
         }
         sqlSession.close();
+
+    }
+
+    @Test
+    public void testNodefindById(){
+        //一级缓存:在同一个SqlSession中多次查询一个对象，会触发一级缓存
+
+        //二级缓存：在同一个SqlSessionFactory产生的SQLsession中多次查询同一个对象，会触发二级缓存
+        //二级缓存需要配置才能够有生效：1.放入的对象要是能够可序列化的 2.在mapper.xml中添加<cache/>
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        NodeMapper nodeMapper = sqlSession.getMapper(NodeMapper.class);
+
+        Node node = nodeMapper.findById(1);
+
+        node = nodeMapper.findById(1);
+        node = nodeMapper.findById(1);
+        node = nodeMapper.findById(1);
+
+        logger.debug("{}",node);
+
+        sqlSession.close();
+
 
     }
 }
