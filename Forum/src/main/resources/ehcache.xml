@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ehcache>
+    <diskStore path="java.io.tmpdir"/>
+
+        <!--
+        maxElementsInMemory：存放元素的最大值
+        eternal="false"：缓存的常量
+        timeToIdleSeconds：闲置时间
+        timeToLiveSeconds：存在时间
+        overflowToDisk：当内存不足时是否存入磁盘
+        -->
+
+    <cache name="myCache"
+           maxElementsInMemory="2000"
+           eternal="false"
+           timeToIdleSeconds="50"
+           timeToLiveSeconds="50"
+           overflowToDisk="true"
+    />
+
+</ehcache>
