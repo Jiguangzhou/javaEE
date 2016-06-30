@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+        <!--1.把通知类放入Spring容器中-->
+        <bean id="Notice" class="com.kaishengit.aop.Notice"/>
+        <!--2-->
+        <aop:config>
+                <!--2.1 引用通知类对象-->
+                <aop:aspect ref="Notice">
+                        <!--2.2 定义切入点的表达式-->
+                        <aop:pointcut id="myPointcut" expression="execution(* com.kaishengit.dao..*.*(..))"/>
+                        <!--2.3 加入各种通知-->
+                        <!--前置通知-->
+                        <!--<aop:before method="beforeNotice" pointcut-ref="myPointcut"/>-->
+                        <!--后置通知-->
+                        <!--<aop:after-returning method="afterAdvice" pointcut-ref="myPointcut" returning="result"/>-->
+                        <!--异常通知-->
+                        <!--<aop:after-throwing method="exceptionNotice" pointcut-ref="myPointcut" throwing="ex"/>-->
+                        <!--最终通知-->
+                        <!--<aop:after method="finallyNotice" pointcut-ref="myPointcut"/>-->
+
+                        <!--环绕通知-->
+                        <aop:around method="aroundNotice" pointcut-ref="myPointcut"/>
+                </aop:aspect>
+        </aop:config>
+
+
+        <!--<bean id="BookService" class="com.kaishengit.service.BookService">
+                <property name="bookName" value="Java"/>
+                <property name="num" value="1"/>
+                <property name="lists">
+                        <list>
+                                <value>1</value>
+                                <value>2</value>
+                                <value>3</value>
+                        </list>
+                </property>
+                <property name="sets">
+                        <set>
+                                <value>set1</value>
+                                <value>set2</value>
+                        </set>
+                </property>
+                <property name="properties">
+                        <props>
+                                <prop key="k1">v1</prop>
+                                <prop key="k2">v2</prop>
+                        </props>
+
+                </property>
+        </bean>-->
+
+        <bean id="UserDao" class="com.kaishengit.dao.UserDaoImpl"/>
+        <!--<bean id="UserDao1" class="com.kaishengit.dao.UserDaoImpl2"/>-->
+
+        <!--自动注入-->
+        <!--
+            byName:根据setxxx()后面的xxx部分的名字从Spring容器中获取对象并自动注入到当前类
+            byType:根据set方法参数类型从Spring容器中获取对象，自动注入到当前类中
+                   但是如果在Spring中有一个以上的Bean符合类型则抛出异常
+            contructor:先根据构造方法的名字在Spring中查找，如果没有找到再根据方法参数查找对象
+        -->
+        <bean id="UserService" class="com.kaishengit.service.UserService" autowire="byType"/>
+
+
+
+
+
+        <!--构造方法注入-->
+
+        <!--<bean id="UserService" class="com.kaishengit.service.UserService">-->
+                <!--<constructor-arg type="com.kaishengit.dao.UserDao" ref="UserDao1"/>-->
+                <!--<constructor-arg type="com.kaishengit.dao.UserDao" ref="UserDao"/>-->
+        <!--</bean>-->
+
+        <!--根据构造方法的索引注入-->
+        <!--<bean id="UserService" class="com.kaishengit.service.UserService">-->
+                <!--<constructor-arg index="0" ref="UserDao"/>-->
+        <!--</bean>-->
+
+        <!--根据构造方法的名字注入-->
+        <!--<bean id="UserService" class="com.kaishengit.service.UserService">-->
+                <!--<constructor-arg name="userDao" ref="UserDao1"/>-->
+        <!--</bean>-->
+
+
+        <!--<bean id="UserService" class="com.kaishengit.service.UserService" p:userDao-ref="UserDao1"/>
+-->
+        <!--set方法注入-->
+        <!--<bean id="UserDao" class="com.kaishengit.dao.UserDaoImpl"/>-->
+        <!--<bean id="UserDao1" class="com.kaishengit.dao.UserDaoImpl2"/>-->
+        <!--<bean id="UserService" class="com.kaishengit.service.UserService">-->
+                <!--<property name="userDao" ref="UserDao"/>-->
+        <!--</bean>-->
+
+        <!--
+           lazy-init:true 表示在调用getBean的时候才会创建一个对象(类的延迟加载)
+        -->
+        <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" lazy-init="true"/>-->
+        <!--
+            scope:默认值为 singleton
+            如果修改为prototype则每次调用getBean方法时会获得一个类的对象，在spring容器启动时该类的对象不会被创建
+        -->
+        <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" scope="prototype"/>-->
+
+        <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" init-method="init" destroy-method="destory"/>-->
+        <!--init method:定义类中的初始化方法-->
+        <!--destory method:定义类中的销毁方法-->
+        <!--起别名-->
+        <!--<alias name="userDao" alias="dao"/>-->
+</beans>
