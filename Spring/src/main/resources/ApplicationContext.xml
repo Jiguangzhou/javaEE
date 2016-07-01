@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
         <!--基于注解的Bean管理和DI-->
-        <context:component-scan base-package="com.kaishengit.dao"/>
+        <context:component-scan base-package="com.kaishengit"/>
         <!--读取Config文件-->
         <context:property-placeholder location="config.properties"/>
 
@@ -27,12 +27,36 @@
                 <property name="maxIdle" value="${jdbc.maxidle}"/>
                 <property name="minIdle" value="${jdbc.minidle}"/>
         </bean>
+
         <!--创建JDBCTemplate-->
         <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
                 <property name="dataSource" ref="dataSource"/>
         </bean>
 
+        <!--配置Mybatis中SqlSessionFactoryBean-->
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property name="dataSource" ref="dataSource"/>
+                <!--将pojo中的所有类的别名声明为类的名字-->
+                <property name="typeAliasesPackage" value="com.kaishengit.pojo"/>
+                <!--自动加载classpath中mapper文件夹中的所有xml文件-->
+                <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        </bean>
+        <!--
+            自动扫描
+            1.告诉Mybatis Mapper接口的位置
+            2.将所有的mapper文件放入Spring容器
+        -->
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+                <property name="basePackage" value="com.kaishengit.mapper"/>
+        </bean>
 
+        <!--JDBC事务管理-->
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+        <!--基于注解的事务-->
+        <tx:annotation-driven transaction-manager="transactionManager"/>
         <!--1.把通知类放入Spring容器中-->
         <!--<bean id="Notice" class="com.kaishengit.aop.Notice"/>-->
         <!--2-->
@@ -92,7 +116,7 @@
                    但是如果在Spring中有一个以上的Bean符合类型则抛出异常
             contructor:先根据构造方法的名字在Spring中查找，如果没有找到再根据方法参数查找对象
         -->
-        <bean id="UserService" class="com.kaishengit.service.UserService" autowire="byType"/>
+        <!--<bean id="UserService" class="com.kaishengit.service.UserService" autowire="byType"/>-->
 
 
 
