@@ -20,7 +20,7 @@ public class SimpleDemoTestCase {
 
         UserService userService = (UserService) context.getBean("UserService");
 
-        userService.sayHi();
+        /*userService.sayHi();*/
        /* UserDao userDao = (UserDao) context.getBean("userDao");
 
         userDao.sayHello();

@@ -13,8 +13,4 @@ public class SpringTestCase {
     @Autowired
     private UserService userService;
 
-    @Test
-    public void testayHi(){
-        userService.sayHi();
-    }
 }

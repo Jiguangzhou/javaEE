@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <!--基于注解的Bean管理和DI-->
+        <context:component-scan base-package="com.kaishengit.dao"/>
+        <!--读取Config文件-->
+        <context:property-placeholder location="config.properties"/>
+
+        <!--配置数据源(创建数据库连接池)-->
+        <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+                <property name="driverClassName" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="initialSize" value="${jdbc.initsize}"/>
+                <property name="maxTotal" value="${jdbc.maxsize}"/>
+                <property name="maxWaitMillis" value="${jdbc.maxwait}"/>
+                <property name="maxIdle" value="${jdbc.maxidle}"/>
+                <property name="minIdle" value="${jdbc.minidle}"/>
+        </bean>
+        <!--创建JDBCTemplate-->
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+                <property name="dataSource" ref="dataSource"/>
+        </bean>
 
 
         <!--1.把通知类放入Spring容器中-->
-        <bean id="Notice" class="com.kaishengit.aop.Notice"/>
+        <!--<bean id="Notice" class="com.kaishengit.aop.Notice"/>-->
         <!--2-->
-        <aop:config>
+        <!--<aop:config>-->
                 <!--2.1 引用通知类对象-->
-                <aop:aspect ref="Notice">
+                <!--<aop:aspect ref="Notice">-->
                         <!--2.2 定义切入点的表达式-->
-                        <aop:pointcut id="myPointcut" expression="execution(* com.kaishengit.dao..*.*(..))"/>
+                        <!--<aop:pointcut id="myPointcut" expression="execution(* com.kaishengit.dao..*.*(..))"/>-->
                         <!--2.3 加入各种通知-->
                         <!--前置通知-->
                         <!--<aop:before method="beforeNotice" pointcut-ref="myPointcut"/>-->
@@ -28,9 +52,9 @@
                         <!--<aop:after method="finallyNotice" pointcut-ref="myPointcut"/>-->
 
                         <!--环绕通知-->
-                        <aop:around method="aroundNotice" pointcut-ref="myPointcut"/>
-                </aop:aspect>
-        </aop:config>
+                        <!--<aop:around method="aroundNotice" pointcut-ref="myPointcut"/>-->
+                <!--</aop:aspect>-->
+        <!--</aop:config>-->
 
 
         <!--<bean id="BookService" class="com.kaishengit.service.BookService">
@@ -58,7 +82,7 @@
                 </property>
         </bean>-->
 
-        <bean id="UserDao" class="com.kaishengit.dao.UserDaoImpl"/>
+        <!--<bean id="UserDao" class="com.kaishengit.dao.UserDaoImpl"/>-->
         <!--<bean id="UserDao1" class="com.kaishengit.dao.UserDaoImpl2"/>-->
 
         <!--自动注入-->

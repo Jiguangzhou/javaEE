@@ -14,7 +14,5 @@ public class UserService {
         this.userDao = userDao;
     }
 */
-    public void sayHi(){
-        userDao.save();
-    }
+
 }
