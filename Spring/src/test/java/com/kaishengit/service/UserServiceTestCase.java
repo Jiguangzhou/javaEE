@@ -2,6 +2,7 @@ package com.kaishengit.service;
 
 
 import com.kaishengit.pojo.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,5 +30,11 @@ public class UserServiceTestCase {
         user.setPassword("1111111");
 
         userService.save(user);
+    }
+
+    @Test
+    public void testFindById(){
+        User user = userService.findById(10);
+        Assert.assertNotNull(user);
     }
 }

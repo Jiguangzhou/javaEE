@@ -6,7 +6,6 @@ import com.kaishengit.mapper.UserMapper;
 import com.kaishengit.pojo.Login;
 import com.kaishengit.pojo.User;
 import org.springframework.transaction.annotation.Transactional;
-import sun.org.mozilla.javascript.internal.annotations.JSConstructor;
 
 
 import javax.inject.Inject;
@@ -25,6 +24,10 @@ public class UserService {
 
     public void save(User user) {
         userMapper.save(user);
+    }
+
+    public User findById(Integer id){
+        return userMapper.findById(id);
     }
 
     // 1.事务添加在service层

@@ -5,5 +5,5 @@ import com.kaishengit.pojo.User;
 public interface UserMapper {
 
     void save(User user);
-    void findById(Integer id);
+    User findById(Integer id);
 }
