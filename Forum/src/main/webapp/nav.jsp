@@ -21,26 +21,12 @@
                 <li id="*"><a href="#">下载</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">修改密码</a></li>
-                        <li><a href="#">个人设置</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/userexit">安全退出</a></li>
-                    </ul>
-                </li>
-                <div class="aw-user-nav">
-                    <!-- 登陆&注册栏 -->
-									<span>
-						<a class="register btn btn-normal btn-success"
-                           href="http://wenda.ghostchina.com/account/register/">注册</a>
-						<a class="login btn btn-normal btn-primary" href="http://wenda.ghostchina.com/login/">登录</a>
+                    <span>
+						<a class="btn btn-normal btn-success"
+                           href="#" >注册</a>
+						<a class="btn btn-normal btn-primary"
+                           href="#">登录</a>
 					</span>
-                    <!-- end 登陆&注册栏 -->
-                </div>
             </ul>
         </div>
     </div>

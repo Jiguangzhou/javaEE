@@ -13,23 +13,17 @@
             padding: 40px 15px;
             text-align: center;
         }
-
-        td {
-            text-align: left;
-        }
-
     </style>
 </head>
 <body>
 
 <%@ include file="nav.jsp"%>
 <div class="container">
+
 </div>
 <script src="/static/js/jquery-1.11.3.min.js"></script>
 <script src="/static/css/bootstrap.min.css"></script>
 <script src="static/js/jquery.validate.min.js"></script>
-<script>
 
-</script>
 </body>
 </html>

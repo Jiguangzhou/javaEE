@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 
-public class DbHelp<U> {
+public class DbHelp {
 
-    public static Logger logger = LoggerFactory.getLogger(DbHelp<U>.class);
+    public static Logger logger = LoggerFactory.getLogger(DbHelp.class);
     public static void update(String sql,Object... params) {
         QueryRunner queryRunner = new QueryRunner(ConnectionManager.getDataSource());
         try {
