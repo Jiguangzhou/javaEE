@@ -33,7 +33,7 @@
                     if (httpState == 200){
                         var result = xmlHttp.responseText;
 
-                        if (result == "yes"){
+                        if (result == "true"){
                             document.querySelector("#help_text").innerText = "√";
                         }else{
                             document.querySelector("#help_text").innerText = "用户名已被占用";

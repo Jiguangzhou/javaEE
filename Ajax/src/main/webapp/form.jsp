@@ -32,43 +32,43 @@
     </div>
 </div>
 
-<script src="/static/js/jquery-1.11.1.js"></script>
+<script src="/static/js/jquery-1.11.3.min.js"></script>
 <script src="/static/js/jquery.validate.min.js"></script>
 <script>
-    $(function () {
-        $("regForm").validate({
+    $(function (){
+        $("#regForm").validate({
             errorElement: "span",
             errorClass: "text-danger",
             rules: {
                 username: {
                     required: true,
-                    minlength: 4,
+                    minlength: 3,
                     remote: "/checkusername"
                 },
                 password: {
                     required: true,
-                    rangelength: [6, 18]
+                    rangelength:[6, 18]
                 },
                 other: {
                     required: true
                 }
             },
-            message: {
+            messages: {
                 username: {
-                    required: "请输入帐号",
-                    minlength: "帐号不得低于三位",
-                    remote: "帐号已被占用"
+                    required: "请输入账号",
+                    minlength: "账号不得低于三位",
+                    remote: "账号已被占用"
                 },
                 password: {
                     required: "请输入密码",
                     rangelength: "密码长度为6-18位"
                 },
                 other: {
-                    requried: "请输入个人简介"
+                    required: "请输入个人简介"
                 }
             },
             submitHandler: function (form) {
-                var $btn = $("subbtn");
+                var $btn = $("#subbtn");
                 $.ajax({
                     url: "/reg",
                     type: "post",
@@ -77,7 +77,7 @@
                         $btn.text("注册中...").attr("disabled", "disabled");
                     },
                     success: function () {
-                        alret("注册成功");
+                        alert("注册成功");
                     },
                     error: function () {
                         alert("服务器繁忙，请稍后再试");

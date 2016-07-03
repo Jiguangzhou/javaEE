@@ -18,7 +18,7 @@
 <div id="userBox">
 
 </div>
-<script src="/static/js/jquery-1.11.1.js"></script>
+<script src="/static/js/jquery-1.11.3.min.js"></script>
 <script>
     $(function () {
         $("#xmlbtn").click(function () {
