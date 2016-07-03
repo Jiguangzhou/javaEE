@@ -7,6 +7,11 @@
     <insert id="save" parameterType="User">
         INSERT  INTO t_user(username,address,password) VALUES (#{username},#{address},#{password})
     </insert>
+    <delete id="delete">
+        DELETE
+    </delete>
+
+
     <select id="findById" resultType="com.kaishengit.pojo.User">
         SELECT * FROM t_user WHERE id = #{id}
     </select>
