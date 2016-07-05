@@ -3,6 +3,7 @@ package com.kaishengit.controller;
 import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Book;
 import com.kaishengit.pojo.BookType;
+import com.kaishengit.pojo.Page;
 import com.kaishengit.pojo.Publisher;
 import com.kaishengit.service.BookService;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
@@ -23,10 +25,10 @@ public class BookController {
     private BookService bookService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String list(Model model) {
-        List<Book> bookList = bookService.findAllBook();
-
-        model.addAttribute("bookList", bookList);
+    public String list(@RequestParam(required = false,defaultValue = "1") Integer p, Model model) {
+        //List<Book> bookList = bookService.findAllBook();
+        Page<Book> page = bookService.findBookPage(p);
+        model.addAttribute("page", page);
         return "books/list";
     }
 

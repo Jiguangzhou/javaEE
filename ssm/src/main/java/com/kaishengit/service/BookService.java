@@ -5,6 +5,7 @@ import com.kaishengit.mapper.BookTypeMapper;
 import com.kaishengit.mapper.PublisherMapper;
 import com.kaishengit.pojo.Book;
 import com.kaishengit.pojo.BookType;
+import com.kaishengit.pojo.Page;
 import com.kaishengit.pojo.Publisher;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,5 +50,12 @@ public class BookService {
 
     public Book findById(Integer id){
         return bookMapper.findById(id);
+    }
+
+    public Page<Book> findBookPage(Integer p) {
+        int totalSize = bookMapper.count().intValue();
+        Page<Book> page = new Page<>(p,5,totalSize);
+
+        List<Book> bookList = bookMapper.findByPage(page.getStart(),5);
     }
 }
