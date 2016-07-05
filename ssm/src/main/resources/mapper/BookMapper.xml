@@ -32,16 +32,18 @@
         INNER JOIN t_publisher ON  t_book.pubid = t_publisher.id
         ORDER BY t_book.id DESC
     </select>
-    <select id="count" resultType="Long">
-        SELECT count(*) FROM t_book
+    <select id="count" resultType="long">
+        SELECT count(*) from t_book
     </select>
+
     <select id="findByPage" resultType="Book">
-        SELECT t_book.*,t_booktype.id AS 'booktype.id',t_booktype.booktype AS 'booktype.bookType',
-        t_publisher.id AS 'publisher.id',t_publisher.pubname AS 'publisher.pubname'
+        SELECT t_book.*,t_booktype.id as 'bookType.id',t_booktype.booktype as 'bookType.bookType',
+        t_publisher.id as 'publisher.id',t_publisher.pubname as 'publisher.pubname'
         FROM t_book
-        INNER JOIN t_booktype on t_book.typeid = t_booktype.id
-        INNER JOIN t_publisher ON  t_book.pubid = t_publisher.id
-        ORDER BY t_book.id DESC
+        INNER join t_booktype ON t_book.typeid = t_booktype.id
+        INNER JOIN t_publisher on t_book.pubid = t_publisher.id
+        ORDER by t_book.id DESC
+        limit ${start},${size}
     </select>
 
 </mapper>

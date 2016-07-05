@@ -3,9 +3,9 @@ package com.kaishengit.controller;
 import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Book;
 import com.kaishengit.pojo.BookType;
-import com.kaishengit.pojo.Page;
 import com.kaishengit.pojo.Publisher;
 import com.kaishengit.service.BookService;
+import com.kaishengit.util.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +28,8 @@ public class BookController {
     public String list(@RequestParam(required = false,defaultValue = "1") Integer p, Model model) {
         //List<Book> bookList = bookService.findAllBook();
         Page<Book> page = bookService.findBookPage(p);
-        model.addAttribute("page", page);
+
+        model.addAttribute("page",page);
         return "books/list";
     }
 
