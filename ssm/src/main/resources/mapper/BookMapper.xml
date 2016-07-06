@@ -10,6 +10,7 @@
         INSERT INTO t_book(bookname, bookprice, bookauthor, booknum, typeid, pubid, bookpic)
         VALUES (#{bookname},#{bookprice},#{bookauthor},#{booknum},#{typeid},#{pubid},'')
     </insert>
+
     <update id="update" parameterType="Book">
         UPDATE t_book SET bookname = #{bookname},bookpic = #{bookpic},bookauthor = #{bookauthor},
         booknum = #{booknum},typeid = #{typeid},pubid = #{pubid}
@@ -32,6 +33,7 @@
         INNER JOIN t_publisher ON  t_book.pubid = t_publisher.id
         ORDER BY t_book.id DESC
     </select>
+
     <select id="count" resultType="long">
         SELECT count(*) from t_book
     </select>
@@ -42,6 +44,43 @@
         FROM t_book
         INNER join t_booktype ON t_book.typeid = t_booktype.id
         INNER JOIN t_publisher on t_book.pubid = t_publisher.id
+        ORDER by t_book.id DESC
+        limit ${start},${size}
+    </select>
+
+    <select id="countByParam" resultType="long">
+        SELECT count(*) FROM t_book
+        <where>
+            <if test="bookname != null and bookname !=''">
+                bookname LIKE CONCAT('%',#{bookname},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and typeid = #{type}
+            </if>
+            <if test="pub != null and pub != ''">
+                and pubid = #{pub}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByParam" resultType="Book">
+        SELECT t_book.*,
+        t_booktype.id as 'bookType.id',t_booktype.booktype as 'bookType.bookType',
+        t_publisher.id as 'publisher.id',t_publisher.pubname as 'publisher.pubname'
+        FROM t_book
+        INNER join t_booktype ON t_book.typeid = t_booktype.id
+        INNER JOIN t_publisher on t_book.pubid = t_publisher.id
+        <where>
+            <if test="bookname != null and bookname != ''">
+                bookname LIKE CONCAT('%',#{bookname},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and typeid = #{type}
+            </if>
+            <if test="pub != null and pub != ''">
+                and pubid = #{pub}
+            </if>
+        </where>
         ORDER by t_book.id DESC
         limit ${start},${size}
     </select>

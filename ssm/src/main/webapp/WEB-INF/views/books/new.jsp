@@ -6,6 +6,13 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <style>
+        .container{
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -13,7 +20,7 @@
         <h3>添加新书籍</h3>
     </div>
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-11">
             <div class="page-header">
                 <form action="" method="post">
                     <div class="form-group">

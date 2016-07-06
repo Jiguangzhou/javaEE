@@ -6,14 +6,22 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <style>
+        .container{
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
+
 <div class="container">
     <div>
         <h3>修改书籍</h3>
     </div>
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-lg-11">
             <div class="page-header">
                 <form action="" method="post">
                     <input type="hidden" name="id" value="${book.id}">
