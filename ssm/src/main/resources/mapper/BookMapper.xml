@@ -97,13 +97,17 @@
                 t_book.bookname like concat('%',#{keyword},'%')
             </if>
         </where>
+        <if test="sortColumn != null and sortColumn != '' and sortType != null and sortType != ''">
+        ORDER BY ${sortColumn} ${sortType}
+        </if>
         limit ${start},${length}
     </select>
+
     <select id="countByKeyword" resultType="long">
         SELECT count(*) FROM t_book
         <where>
             <if test="keyword != null and keyword != ''">
-                bookname like concat('%',#{bookname},'%')
+                bookname like concat('%',#{keyword},'%')
             </if>
         </where>
     </select>
