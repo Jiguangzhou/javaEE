@@ -37,8 +37,12 @@ public class DataTableController {
         String draw = request.getParameter("draw");
         String start = request.getParameter("start");//当前页面起始
         String length = request.getParameter("length");//每页显示的数据量
-        String keyword = request.getParameter("search[value]");//搜索框中的值
-        keyword = Strings.toUTF8(keyword);
+        String bookname = request.getParameter("bookname");
+        String typeid = request.getParameter("typeid");
+        String pubid = request.getParameter("pubid");
+        //String keyword = request.getParameter("search[value]");//搜索框中的值
+        //keyword = Strings.toUTF8(keyword);
+        bookname = Strings.toUTF8(bookname);
 
         String sortColumnIndex = request.getParameter("order[0][column]");//获取排序列的索引
         String sortColumnName = request.getParameter("columns[" + sortColumnIndex + "][name]");//根据排序列的索引获取列的名字
@@ -47,7 +51,10 @@ public class DataTableController {
         Map<String, Object> param = Maps.newHashMap();
         param.put("start", start);
         param.put("length", length);
-        param.put("keyword", keyword);
+        param.put("bookname",bookname);
+        param.put("type",typeid);
+        param.put("pub",pubid);
+        //param.put("keyword", keyword);
         param.put("sortColumn", sortColumnName);
         param.put("sortType", sortType);
 
@@ -56,7 +63,7 @@ public class DataTableController {
         Map<String, Object> result = Maps.newHashMap();
         result.put("draw", draw);
         result.put("recordsTotal", bookService.count());
-        result.put("recordsFiltered", bookService.countByKeyword(keyword));
+        result.put("recordsFiltered", bookService.countByParam(param));
         result.put("data", bookList);
         return result;
     }
@@ -79,5 +86,12 @@ public class DataTableController {
     @ResponseBody
     public Book showBook(@PathVariable Integer id){
         return bookService.findById(id);
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public String updataBook(Book book){
+        bookService.updateBook(book);
+        return "success";
     }
 }

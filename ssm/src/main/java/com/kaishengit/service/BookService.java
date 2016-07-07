@@ -75,8 +75,8 @@ public class BookService {
         return bookMapper.count();
     }
 
-    public Object countByKeyword(String keyword) {
-        return bookMapper.countByKeyword(keyword);
+    public Object countByParam(Map<String,Object> param) {
+        return bookMapper.countByParam(param);
     }
 }
 

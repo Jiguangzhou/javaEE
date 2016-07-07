@@ -13,6 +13,29 @@
     <div>
         <h3>图书列表</h3>
     </div>
+    <div class="well well-sm ">
+        <form method="get" class="form-inline">
+            <input type="text" placeholder="书籍名称" id="search_bookName" class="form-control" name="bookname" value="${bookname}">
+
+            <div class="form-group">
+                <select name="type" class="form-control" id="search_bookType">
+                    <option value="">请选择类型</option>
+                    <c:forEach items="${types}" var="type">
+                        <option value="${type.id}" ${book.typeid == type.id ? 'selected' : ''}>${type.booktype}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="pubid" id="search_bookPub">
+                    <option value="">请选择出版社</option>
+                    <c:forEach items="${pubs}" var="pub">
+                        <option value="${pub.id}"${book.pubid == pub.id ? 'selected' : ''}>${pub.pubname}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <button type="button" id="searchBtn" class="btn btn-default">搜索</button>
+        </form>
+    </div>
     <a href="javascript:;" id="addBtn" class="btn btn-success" style="margin-bottom: 10px">添加新书籍</a>
     <table id="dataTable" class="table table-bordered">
         <thead>
@@ -85,6 +108,62 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editBookModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改书籍</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" name="id" id="edit_bookid">
+                    <div class="form-group">
+                        <label>书籍名称</label>
+                        <input type="text" class="form-control" name="bookname" id="edit_bookname">
+                    </div>
+                    <div class="form-group">
+                        <label>书籍作者</label>
+                        <input type="text" class="form-control" name="bookauthor" id="edit_bookauthor">
+                    </div>
+                    <div class="form-group">
+                        <label>书籍价格</label>
+                        <input type="text" class="form-control" name="bookprice" id="edit_bookprice">
+                    </div>
+                    <div class="form-group">
+                        <label>书籍数量</label>
+                        <input type="text" class="form-control" name="booknum" id="edit_booknum">
+                    </div>
+                    <div class="form-group">
+                        <label>书籍分类</label>
+                        <select class="form-control" name="typeid" id="edit_booktypeid">
+                            <c:forEach items="${types}" var="type">
+                                <option value="${type.id}">${type.booktype}</option>
+                            </c:forEach>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>出版社</label>
+                        <select class="form-control" name="pubid" id="edit_bookpubid">
+                            <c:forEach items="${pubs}" var="pub">
+                                <option value="${pub.id}" }>${pub.pubname}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="editBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/static/js/jquery-1.11.3.min.js"></script>
 <script src="/static/js/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/static/js/datatables/js/dataTables.bootstrap.min.js"></script>
@@ -95,8 +174,16 @@
         var dataTable = $("#dataTable").DataTable({
             "lengthMenu": [5, 10, 15, 20],
             "serverSide": true,//表示所有的操作都在服务端进行
-            "ajax": "/datatable/data.json",//服务端的url
+            "ajax": {
+                url:"/datatable/data.json",
+                data: function (dataSource) {
+                    dataSource.bookname = $("#search_bookName").val();
+                    dataSource.typeid = $("#search_bookType").val();
+                    dataSource.pubid = $("#search_bookPub").val();
+                }
+            },//服务端的url
             "order":[0,'desc'],
+            "searching":false,//禁止使用自带的搜索
             "columns": [    //配置json中data属性数据key和表中列的对应关系
                 {"data": "id", "name": "id"},
                 {"data": "bookname"},
@@ -216,11 +303,78 @@
         $(document).delegate(".editLink","click", function () {
             var id = $(this).attr("rel");
             $.get("/datatable/"+id+".json").done(function (data) {
-                alert(data);
+                //将json数据显示在表单上
+                $("#edit_bookid").val(data.id);
+                $("#edit_bookname").val(data.bookname);
+                $("#edit_bookauthor").val(data.bookauthor);
+                $("#edit_bookprice").val(data.bookprice);
+                $("#edit_booknum").val(data.booknum);
+                $("#edit_booktypeid").val(data.typeid);
+                $("#edit_bookpubid").val(data.pubid);
+                $("#editBookModal").modal( {
+                    show:true,
+                    drapback:'static',
+                    keyboard:false
+                });
             }).fail(function () {
                 alert("请求服务器异常")
             })
-        })
+        });
+
+        $("#editBtn").click(function () {
+            $("#editForm").submit();
+        });
+        $("#editForm").validate({
+            errorElement: "span",
+            errorClass: "text-danger",
+            rules: {
+                bookname: {
+                    required: true
+                },
+                bookauthor: {
+                    required: true
+                },
+                bookprice: {
+                    required: true,
+                    number: true
+                },
+                booknum: {
+                    required: true,
+                    digits: true
+                }
+            },
+            messages: {
+                bookname: {
+                    required: "请输入书籍名称"
+                },
+                bookauthor: {
+                    required: "请输入作者"
+                },
+                bookprice: {
+                    required: "请输入价格",
+                    number: "请输入正确价格"
+                },
+                booknum: {
+                    required: "请输入数量",
+                    digits: "请输入正确的数量"
+                }
+            },
+            submitHandler: function (form) {
+                $.post("/datatable/update", $(form).serialize())
+                        .done(function (data) {
+                            if (data == "success") {
+                                $("#editBookModal").modal("hide");
+                                dataTable.ajax.reload();//让DataTables组件自动刷新
+                            }
+                        })
+                        .fail(function () {
+                            alert("请求服务器异常")
+                        });
+            }
+        });
+        $("#searchBtn").click(function () {
+            dataTable.ajax.reload();
+        });
     });
 </script>
 </body>
