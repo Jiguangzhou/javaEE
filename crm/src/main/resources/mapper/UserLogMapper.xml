@@ -3,5 +3,8 @@
 <mapper namespace="com.kaishengit.mapper.UserLogMapper">
 
     <cache/>
+    <insert id="save">
+        INSERT into t_userlog(logintime, loginip, userid) VALUES (#{logintime},#{loginip},#{userid})
+    </insert>
 
 </mapper>
