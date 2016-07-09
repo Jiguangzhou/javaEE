@@ -4,8 +4,10 @@ package com.kaishengit.service;
 import com.kaishengit.mapper.RoleMapper;
 import com.kaishengit.mapper.UserLogMapper;
 import com.kaishengit.mapper.UserMapper;
+import com.kaishengit.pojo.User;
 import com.kaishengit.pojo.UserLog;
 import com.kaishengit.util.ShiroUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
 
 import javax.inject.Inject;
@@ -31,5 +33,15 @@ public class UserService {
         userLog.setUserid(ShiroUtil.getCurrentUserID());
 
         userLogMapper.save(userLog);
+    }
+
+    /**
+     * 修改密码
+     * @param password
+     */
+    public void changePassword(String password) {
+        User user = ShiroUtil.getCurrentUser();
+        user.setPassword(DigestUtils.md5Hex(password));
+        userMapper.updateUser(user);
     }
 }
