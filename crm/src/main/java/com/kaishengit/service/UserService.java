@@ -137,4 +137,20 @@ public class UserService {
             userMapper.updateUser(user);
         }
     }
+    /**
+     * 根据用户id查找用户
+     * @param id
+     * @return
+     */
+    public User findUserById(Integer id) {
+        return userMapper.findById(id);
+    }
+
+    /**
+     * 修改员工信息
+     * @param user
+     */
+    public void editUser(User user) {
+        userMapper.updateUser(user);
+    }
 }

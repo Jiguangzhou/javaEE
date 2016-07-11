@@ -2,12 +2,14 @@ package com.kaishengit.controller;
 
 import com.google.common.collect.Maps;
 import com.kaishengit.dto.DataTablesResult;
+import com.kaishengit.dto.JSONResult;
 import com.kaishengit.pojo.Role;
 import com.kaishengit.pojo.User;
 import com.kaishengit.service.UserService;
 import com.kaishengit.util.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -92,4 +94,31 @@ public class AdminController {
         userService.resetUserPassword(id);
         return "success";
     }
+
+    /**
+     * 根据用户的ID显示用户JSON
+     * @return
+     */
+    @RequestMapping(value = "/{id:\\d+}.json",method = RequestMethod.GET)
+    @ResponseBody
+    public JSONResult showUser(@PathVariable Integer id) {
+        User user = userService.findUserById(id);
+        if(user == null) {
+            return new JSONResult("找不到"+id+"对应的用户");
+        } else {
+            return new JSONResult(user);
+        }
+    }
+    /**
+     * 编辑用户
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @ResponseBody
+    public String editUser(User user) {
+        userService.editUser(user);
+        return "success";
+    }
+
 }
