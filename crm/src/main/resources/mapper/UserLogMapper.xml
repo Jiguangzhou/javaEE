@@ -7,4 +7,25 @@
         INSERT into t_userlog(logintime, loginip, userid) VALUES (#{logintime},#{loginip},#{userid})
     </insert>
 
+    <select id="findByParam" resultType="UserLog">
+        SELECT * from t_userlog
+        <where>
+            <if test="userId != null and userId != ''">
+                userid = #{userId}
+            </if>
+        </where>
+        ORDER BY id DESC 
+        <if test="start != null and start != '' and length != null and length != ''">
+            limit ${start},${length}
+        </if>
+    </select>
+    <select id="countByParam" resultType="java.lang.Long">
+        SELECT count(*) FROM t_userlog
+        <where>
+            <if test="userId != null and userId != ''">
+                userid = #{userId}
+            </if>
+        </where>
+    </select>
+
 </mapper>

@@ -5,11 +5,51 @@
 <mapper namespace="com.kaishengit.mapper.UserMapper">
 
     <cache/>
+    <insert id="save">
+        INSERT INTO t_user(username, password, realname, weixin, roleid, enable) VALUES
+        (#{username},#{password},#{realname},#{weixin},#{roleid},#{enable})
+    </insert>
+
     <update id="updateUser">
         UPDATE t_user set password = #{password},realname = #{realname},weixin = #{weixin},enable = #{enable} where id = #{id}
     </update>
 
     <select id="findByUsername" resultType="User">
         SELECT * FROM t_user where username = #{username}
+    </select>
+
+    <select id="findAll" resultType="User">
+        SELECT t_user.*,t_role.id AS 'role.id',t_role.rolename AS 'rolename'
+        FROM t_user
+        INNER JOIN t_role on t_user.roleid = t_role.id
+        ORDER BY t_user.id asc
+    </select>
+
+    <select id="findByParam" resultType="User">
+        SELECT t_user.*,t_role.id AS 'role.id',t_role.rolename AS 'role.rolename' FROM t_user
+        INNER JOIN t_role on t_user.roleid = t_role.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                username LIKE concat('%',#{keyword},'%') or realname  like concat('%',#{keyword},'%')
+            </if>
+        </where>
+        ORDER BY t_user.id desc
+        limit ${start},${length}
+    </select>
+
+    <select id="count" resultType="Long">
+        SELECT count(*) FROM t_user
+    </select>
+
+    <select id="countByParam" resultType="Long">
+        SELECT count(*) FROM t_user
+        <where>
+            <if test="keyword != null and keyword != ''">
+                username LIKE concat('%',#{keyword},'%') or realname like concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
+    <select id="findById" resultType="User">
+        select * from t_user WHERE id = #{id}
     </select>
 </mapper>

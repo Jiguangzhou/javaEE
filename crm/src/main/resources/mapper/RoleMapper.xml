@@ -4,6 +4,9 @@
 
     <cache/>
 
+    <select id="findAll" resultType="Role">
+        SELECT * FROM t_role
+    </select>
     <select id="findById" resultType="Role">
         SELECT * FROM t_role WHERE id = #{id}
     </select>
