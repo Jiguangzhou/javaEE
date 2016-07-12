@@ -19,6 +19,7 @@
                 /static/** = anon
                 /admin/** = roles[管理员]
                 /** = authc
+                /notice/new = roles[经理]
             </value>
         </property>
     </bean>

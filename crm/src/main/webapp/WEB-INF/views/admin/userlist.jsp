@@ -207,6 +207,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                     }}
             ],
+            columnDefs:[
+                {targets:[0],visible:false}
+            ],
             "language": {
                 //定义中文
                 "search":"请输入账号或员工姓名",
