@@ -14,5 +14,5 @@ public interface NoticeMapper  {
 
     Long countByParam(Map<String, Object> param);
 
-    void findById(Integer id);
+    Notice findById(Integer id);
 }

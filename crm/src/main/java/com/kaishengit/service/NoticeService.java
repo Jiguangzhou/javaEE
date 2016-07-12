@@ -50,5 +50,13 @@ public class NoticeService {
     public Long findCountByParam(Map<String, Object> param) {
         return noticeMapper.countByParam(param);
     }
-    
+
+    /**
+     * 根据ID查询公告
+     * @param id
+     * @return
+     */
+    public Notice findNoticeById(Integer id) {
+        return noticeMapper.findById(id);
+    }
 }

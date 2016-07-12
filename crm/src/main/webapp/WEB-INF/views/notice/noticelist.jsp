@@ -47,11 +47,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <table class="table table-bordered" id="noticeTable">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>标题</th>
                                 <th>发布人</th>
                                 <th>发布时间</th>
-                                <th>操作</th>
                             </tr>
                         </thead>
                     </table>
@@ -85,16 +83,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             ordering:false,
             "autoWidth": false,
             columns:[
-                {"data":"id"},
-                {"data":"title"},
+                {"data":function(row){
+                    return "<a href='/notice/"+row.id+"'>"+row.title+"</a>"
+                }},
                 {"data":"realname"},
                 {"data":function(row){
                     var timestamp = row.createtime;
                     var day = moment(timestamp);
                     return day.format("YYYY-MM-DD HH:mm");
-                }},
-                {"data": function (row) {
-                    return "<a href='javascript:;' class='view' rel='" + row.id + "'></a>"
                 }}
             ],
             "language": {

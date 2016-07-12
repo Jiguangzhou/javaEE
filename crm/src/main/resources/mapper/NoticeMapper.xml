@@ -30,7 +30,7 @@
             </if>
         </where>
     </select>
-    <select id="findById">
-        SELECT id from t_notice where id = #{id}
+    <select id="findById" resultType="Notice">
+        SELECT * from t_notice where id = #{id}
     </select>
 </mapper>

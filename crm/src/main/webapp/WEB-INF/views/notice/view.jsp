@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DreamCRM</title>
+    <title>DreamCRM | ${notice.title}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -28,17 +29,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
     <%@include file="../include/header.jsp"%>
-    <%@include file="../include/leftSide.jsp"%>
+    <jsp:include page="../include/leftSide.jsp">
+        <jsp:param name="menu" value="notice"/>
+    </jsp:include>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <section class="content-header">
+            <h1>　　</h1>
+            <ol class="breadcrumb">
+                <li><a href="/notice"><i class="fa fa-list"></i> 公告列表</a></li>
+                <li class="active">${notice.title}</li>
+            </ol>
+        </section>
         <!-- Main content -->
         <section class="content">
             <div class="box box-primary">
-                <div class="box-header">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs">${notice.title}</span>
-                    </a>
+                <div class="box-header with-border">
+                    <h3 class="box-title">${notice.title} <small>${notice.realname} <fmt:formatDate value="${notice.createtime}" pattern="y-M-d H:m"/></small></h3>
                 </div>
                 <div class="box-body">
                     ${notice.context}

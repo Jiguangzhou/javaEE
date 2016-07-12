@@ -2,12 +2,13 @@ package com.kaishengit.controller;
 
 import com.google.common.collect.Maps;
 import com.kaishengit.dto.DataTablesResult;
-import com.kaishengit.mapper.NoticeMapper;
+import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Notice;
-import com.kaishengit.pojo.User;
 import com.kaishengit.service.NoticeService;
 import com.kaishengit.util.Strings;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,4 +68,17 @@ public class NoticeController {
         return new DataTablesResult<>(draw,noticeList,count,filtercount);
     }
 
+    /**
+     * 根据ID显示公告内容
+     * @return
+     */
+    @RequestMapping(value = "/{id:\\d+}",method = RequestMethod.GET)
+    public String viewNotice(@PathVariable Integer id, Model model){
+        Notice notice = noticeService.findNoticeById(id);
+        if (notice == null){
+            throw new NotFoundException();
+        }
+        model.addAttribute("notice",notice);
+        return "notice/view";
+    }
 }
