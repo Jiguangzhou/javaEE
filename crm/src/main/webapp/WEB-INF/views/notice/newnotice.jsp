@@ -81,7 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             textarea: $("#context"),
             placeholder: '请输入公告内容',
             upload: {
-            url: '/notice/img/upload',
+            url: '/notice/upload',
             fileKey: 'file'
         }
         });
