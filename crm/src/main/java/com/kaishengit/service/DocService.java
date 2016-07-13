@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -82,6 +83,10 @@ public class DocService {
         return docMapper.findById(id);
     }
 
+    /**
+     * 删除文件(经理权限)
+     * @param id
+     */
     public void delDoc(Integer id) {
         docMapper.del(id);
     }

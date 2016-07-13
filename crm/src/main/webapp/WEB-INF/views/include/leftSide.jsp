@@ -13,7 +13,7 @@
             <shiro:hasAnyRoles name="经理,员工">
             <li class="${param.menu == 'home'?'active':''}"><a href="/home"><i class="fa fa-link"></i> <span>首页</span></a></li>
             <li class="${param.menu == 'notice'?'active':''}"><a href="/notice"><i class="fa fa-bullhorn"></i> <span>公告</span></a></li>
-            <li><a href="#"><i class="fa fa-user"></i> <span>客户管理</span></a></li>
+            <li class="${param.menu == 'customer'?'active':''}"><a href="/customer"><i class="fa fa-user"></i> <span>客户管理</span></a></li>
             <li><a href="#"><i class="fa fa-building-o"></i> <span>项目管理</span></a></li>
             <li><a href="#"><i class="fa fa-bar-chart"></i> <span>统计</span></a></li>
             <li><a href="#"><i class="fa fa-calendar"></i> <span>待办事项</span></a></li>

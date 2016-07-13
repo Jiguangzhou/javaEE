@@ -1,4 +1,4 @@
 package com.kaishengit.mapper;
 
-public interface Customer  {
+public interface CustomerMapper {
 }
