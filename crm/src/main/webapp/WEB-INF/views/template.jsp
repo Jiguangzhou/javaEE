@@ -27,8 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-    <%@include file="include/header.jsp"%>
-    <%@include file="include/leftSide.jsp"%>
+    <%@include doc="include/header.jsp"%>
+    <%@include doc="include/leftSide.jsp"%>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
