@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
 import java.io.*;
@@ -89,5 +90,18 @@ public class DocController {
                 .header("Content-Disposition","attachment;filename=\""+fileName+"\"")
                 .body(new InputStreamResource(inputStream));
 
+    }
+
+    /**
+     * 文件的删除()
+     * @param id
+     * @param redirectAttributes
+     * @return
+     */
+    @RequestMapping(value = "/{id:\\d+}/del",method = RequestMethod.GET)
+    public String delDoc(@PathVariable Integer id, RedirectAttributes redirectAttributes){
+        docService.delDoc(id);
+        redirectAttributes.addFlashAttribute("message","删除成功");
+        return "redirect:/doc";
     }
 }

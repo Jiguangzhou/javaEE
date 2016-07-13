@@ -38,6 +38,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">文件列表</h3>
+                    <h4></h4>
+                    <c:if test="${fid >= 1}">
+                        <button class="btn btn-primary btn-xs" id="backBtn"> 返回</button>
+                    </c:if>
+
                     <div class="box-tools">
                         <div id="uploadBtn"><span class="text"><i class="fa fa-upload"></i> 上传文件</span></div>
                         <button class="btn btn-bitbucket btn-xs" id="newDir"><i class="fa fa-folder"></i> 新建文件夹</button>
@@ -47,11 +52,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>#</th>
+                            <th>类型</th>
                             <th>名称</th>
                             <th>大小</th>
                             <th>上传者</th>
                             <th>上传时间</th>
+                            <shiro:hasRole name="经理">
+                            <th>操作</th>
+                            </shiro:hasRole>
                         </tr>
                         </thead>
                         <tbody>
@@ -68,13 +76,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <td><a href="/doc?fid=${doc.id}">${doc.name}</a></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td><i class="fa fa-doc-o"></i></td>
+                                        <td><i class="fa fa-file-o"></i></td>
                                         <td><a href="/doc/download/${doc.id}">${doc.name}</a></td>
                                     </c:otherwise>
                                 </c:choose>
                                 <td>${doc.size}</td>
                                 <td>${doc.createuser}</td>
                                 <td><fmt:formatDate value="${doc.createtime}" pattern="y-M-d H:m"/></td>
+                                <shiro:hasRole name="经理">
+                                <td>
+                                    <a href="javascript:;" rel="${doc.id}" class="delLink btn">删除</a>
+                                </td>
+                                </shiro:hasRole>
                             </tr>
                         </c:forEach>
 
@@ -166,6 +179,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $("#uploadBtn .text").html('<i class="fa fa-upload"></i>上传文件').removeAttr("disabled");;
         });
 
+        $("#backBtn").click(function () {
+            window.history.go(-1);
+        });
+
+        $(".delLink").click(function () {
+            var id = $(this).attr("rel");
+            if (confirm("确定删除么")) {
+                window.location.href = "/doc/" + id + "/del"
+            }
+        });
     });
 </script>
 </body>

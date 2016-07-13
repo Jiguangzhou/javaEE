@@ -7,6 +7,9 @@
         INSERT INTO t_doc(name, `size`,createuser, type, filename, md5, fid, contexttype)
         VALUES (#{name},#{size},#{createuser},#{type},#{filename},#{md5},#{fid},#{contexttype})
     </insert>
+    <delete id="del">
+        DELETE FROM t_doc WHERE id = #{id}
+    </delete>
 
     <select id="findByFid" resultType="com.kaishengit.pojo.Doc">
         select * from t_doc WHERE fid = #{fid}

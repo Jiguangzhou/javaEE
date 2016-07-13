@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <h3 class="box-title">公告列表</h3>
                     <shiro:hasRole name="经理">
                         <div class="box-tools pull-right">
-                            <a href="notice/newnotice" class="btn btn-xs btn-success"><i
+                            <a href="/notice/newnotice" class="btn btn-xs btn-success"><i
                                     class="fa fa-pencil"></i>发布公告</a>
                         </div>
                     </shiro:hasRole>

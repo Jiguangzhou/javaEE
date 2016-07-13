@@ -82,7 +82,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             placeholder: '请输入公告内容',
             upload: {
             url: '/notice/upload',
-            fileKey: 'doc'
+            fileKey: 'file'
         }
         });
 

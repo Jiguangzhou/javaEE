@@ -81,4 +81,8 @@ public class DocService {
     public Doc findFileById(Integer id){
         return docMapper.findById(id);
     }
+
+    public void delDoc(Integer id) {
+        docMapper.del(id);
+    }
 }

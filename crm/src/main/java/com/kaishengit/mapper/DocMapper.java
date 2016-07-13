@@ -11,4 +11,6 @@ public interface DocMapper {
     void save(Doc doc);
 
     Doc findById(Integer id);
+
+    void del(Integer id);
 }
