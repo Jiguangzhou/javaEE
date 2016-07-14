@@ -14,5 +14,4 @@ public interface DocMapper {
 
     void del(Integer id);
 
-
 }

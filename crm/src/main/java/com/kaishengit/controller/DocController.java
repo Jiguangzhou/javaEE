@@ -93,7 +93,7 @@ public class DocController {
     }
 
     /**
-     * 文件的删除()
+     * 文件的删除(经理权限)
      * @param id
      * @param redirectAttributes
      * @return

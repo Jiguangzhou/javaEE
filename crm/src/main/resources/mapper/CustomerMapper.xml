@@ -3,5 +3,44 @@
 <mapper namespace="com.kaishengit.mapper.CustomerMapper">
 
     <cache/>
+    <insert id="save">
+        INSERT INTO t_customer(name, tel, address, weixin, email, pinyin,companyname, companyid, level, type,userid)
+        VALUES (#{name},#{tel},#{address},#{weixin},#{email},#{pinyin},#{companyname},#{companyid},#{level},#{type},#{userid})
+    </insert>
+
+    <select id="findByParam" resultType="Customer">
+        select * from t_customer
+        <where>
+            <if test="userid != null and userid != ''">
+                userid = #{userid} or (userid = '' or userid = null)
+            </if>
+        </where>
+        limit ${start},${length}
+    </select>
+    
+    <select id="count" resultType="java.lang.Long">
+        SELECT count(*) FROM t_customer
+    </select>
+    
+    <select id="countByParam" resultType="java.lang.Long">
+        select count(*) FROM t_customer
+        <where>
+            <if test="userid != null and userid != ''">
+                userid = #{userid} or (userid = '' or userid = null)
+            </if>
+        </where>
+    </select>
+
+    <select id="findByType" resultType="com.kaishengit.pojo.Customer">
+        SELECT * FROM t_customer WHERE type = #{type}
+    </select>
+
+    <select id="findById" resultType="com.kaishengit.pojo.Customer">
+        select * from t_customer where id = #{id}
+    </select>
+
+    <select id="findCompanyLikeName" resultType="com.kaishengit.pojo.Customer">
+        select * from t_customer where type = 'company' and name LIKE concat('%',#{keyword},'%')
+    </select>
 
 </mapper>

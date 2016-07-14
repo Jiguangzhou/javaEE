@@ -16,7 +16,7 @@
             <li class="${param.menu == 'customer'?'active':''}"><a href="/customer"><i class="fa fa-user"></i> <span>客户管理</span></a></li>
             <li><a href="#"><i class="fa fa-building-o"></i> <span>项目管理</span></a></li>
             <li><a href="#"><i class="fa fa-bar-chart"></i> <span>统计</span></a></li>
-            <li><a href="#"><i class="fa fa-calendar"></i> <span>待办事项</span></a></li>
+            <li><a href="#"><i class="fa fa-calendar"></i> <span>代办事项</span></a></li>
             <li class="${param.menu == 'doc'?'active':''}"><a href="/doc"><i class="fa fa-file-text"></i> <span>文件管理</span></a></li>
             </shiro:hasAnyRoles>
             <shiro:hasRole name="管理员">
