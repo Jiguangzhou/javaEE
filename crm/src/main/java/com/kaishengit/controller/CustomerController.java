@@ -74,4 +74,50 @@ public class CustomerController {
         customerService.delById(id);
         return "success";
     }
+
+    /**
+     * 显示所有公司
+     * @return
+     */
+    @RequestMapping(value = "/company.json",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Customer> showAllCompany() {
+        return customerService.findAllCompany();
+    }
+
+
+    /**
+     * 根据ID查找客户
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/edit/{id:\\d+}.json",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> editCustomer(@PathVariable Integer id){
+        Customer customer = customerService.findCustomerById(id);
+        Map<String,Object> result = Maps.newHashMap();
+
+        if (customer == null){
+            result.put("state","error");
+            result.put("message","未找到相关客户");
+        }else {
+            List<Customer> companyList = customerService.findAllCompany();
+            result.put("state","success");
+            result.put("customer",customer);
+            result.put("companyList",companyList);
+        }
+        return result;
+    }
+
+    /**
+     * 修改客户信息
+     * @param customer
+     * @return
+     */
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @ResponseBody
+    public String edit(Customer customer){
+        customerService.editCustomer(customer);
+        return "success";
+    }
 }

@@ -6,7 +6,6 @@
     <insert id="save">
         INSERT INTO t_customer(name, tel, address, weixin, email, pinyin,companyname, companyid, level, type,userid)
         VALUES (#{name},#{tel},#{address},#{weixin},#{email},#{pinyin},#{companyname},#{companyid},#{level},#{type},#{userid})
-        by desc
     </insert>
     <update id="update">
         UPDATE t_customer SET name = #{name},tel = #{tel},userid = #{userid},address = #{address},weixin = #{weixin},

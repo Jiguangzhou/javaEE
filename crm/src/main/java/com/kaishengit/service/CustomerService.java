@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.kaishengit.mapper.CustomerMapper;
 import com.kaishengit.pojo.Customer;
 import com.kaishengit.util.ShiroUtil;
+import com.kaishengit.util.Strings;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -49,7 +50,7 @@ public class CustomerService {
      * 查询客户中的所有公司
      * @return
      */
-    public Object findAllCompany() {
+    public List<Customer> findAllCompany() {
         return customerMapper.findByType(Customer.CUSTOMER_TYPE_COMPANY);
     }
 
@@ -63,6 +64,7 @@ public class CustomerService {
             customer.setCompanyname(company.getName());
         }
         customer.setUserid(ShiroUtil.getCurrentUserID());
+        customer.setPinyin(Strings.pinyin(customer.getName()));
         customerMapper.save(customer);
     }
 
@@ -91,5 +93,39 @@ public class CustomerService {
             //TODO 删除关联的项目和代办事项
             customerMapper.del(id);
         }
+    }
+
+    /**
+     * 根据id查找客户
+     * @param id
+     * @return
+     */
+    public Customer findCustomerById(Integer id) {
+        return customerMapper.findById(id);
+    }
+
+    /**
+     * 修改客户信息
+     * @param customer
+     */
+    @Transactional
+    public void editCustomer(Customer customer) {
+        if(customer.getType().equals(Customer.CUSTOMER_TYPE_COMPANY)){
+            //找到与他相关的客户并修改名字
+            List<Customer> customerList = customerMapper.findByCompanyId(customer.getId());
+
+            for (Customer cust:customerList){
+                cust.setCompanyname(customer.getName());
+                cust.setCompanyid(customer.getId());
+                customerMapper.update(cust);
+            }
+        }else {
+            if (customer.getCompanyid() != null){
+                Customer company = customerMapper.findById(customer.getCompanyid());
+                customer.setCompanyname(company.getName());
+            }
+        }
+        customer.setPinyin(Strings.pinyin(customer.getName()));
+        customerMapper.update(customer);
     }
 }

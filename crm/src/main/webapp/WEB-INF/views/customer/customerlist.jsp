@@ -120,12 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="form-group" id="companyList">
                         <label>所属公司</label>
-                        <select name="companyid" class="form-control">
-                            <option value=""></option>
-                            <c:forEach items="${companyList}" var="company">
-                                <option value="${company.id}">${company.name}</option>
-                            </c:forEach>
-                        </select>
+                        <select name="companyid" class="form-control"></select>
                     </div>
                     <div class="form-group">
                         <label>客户等级</label>
@@ -147,7 +142,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<%--修改客户信息--%>
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改客户信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" name="id" id="editId">
+                    <input type="hidden" name="userid" id="editUserId">
+                    <input type="hidden" name="type" id="editType">
+                    <div class="form-group">
+                        <label>客户名称</label>
+                        <input type="text" class="form-control" name="name" id="editName">
+                    </div>
+                    <div class="form-group">
+                        <label>联系电话</label>
+                        <input type="text" class="form-control" name="tel" id="editTel">
+                    </div>
+                    <div class="form-group">
+                        <label>地址</label>
+                        <input type="text" class="form-control" name="address" id="editAddress">
+                    </div>
+                    <div class="form-group">
+                        <label>微信</label>
+                        <input type="text" class="form-control" name="weixin" id="editWexin">
+                    </div>
+                    <div class="form-group">
+                        <label>电子邮箱</label>
+                        <input type="text" class="form-control" name="email" id="editEmail">
+                    </div>
+                    <div class="form-group" id="editCompany">
+                        <label>所属公司</label>
+                        <select name="companyid" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>客户等级</label>
+                        <select name="level" class="form-control" id="editLevel">
+                            <option value=""></option>
+                            <option value="★">★</option>
+                            <option value="★★">★★</option>
+                            <option value="★★★">★★★</option>
+                            <option value="★★★★">★★★★</option>
+                            <option value="★★★★★">★★★★★</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="editBtn">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
@@ -240,6 +291,88 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
 
         //修改客户信息
+        $("#editForm").validate({
+            errorClass:"text-danger",
+            errorElement:"span",
+            rules:{
+                name:{
+                    required:true
+                },
+                tel:{
+                    required:true
+                }
+            },
+            messages:{
+                name:{
+                    required:"请输入客户名"
+                },
+                tel:{
+                    required:"请输入联系电话"
+                }
+            },
+            submitHandler: function (form) {
+                $.post("/customer/edit",$(form).serialize()).done(function (data) {
+                    if (data == "success"){
+                        $("#editModal").modal("hide");
+                        dataTable.ajax.reload();
+                    }
+                }).fail(function () {
+                    alert("服务器异常");
+                });
+            }
+        });
+        $(document).delegate(".editLink","click", function () {
+            var id = $(this).attr("rel");
+            var $select = $("#editCompany select");
+            $select.html("");
+            $select.append("<option></option>");
+            //Ajax请求服务端获取个人和公司列表
+            $.get("/customer/edit/"+id +".json").done(function (data) {
+                if (data.state == "success"){
+                    //1.获取公司的列表并动态添加到select中的option中
+                    if(data.companyList && data.companyList.length){
+                        for(var i = 0;i < data.companyList.length;i++){
+                            var company = data.companyList[i];
+                            var option = "<option value='"+company.id+"'>"+company.name+"</option>";
+                            $select.append(option);
+                        }
+                    }
+
+                    //2.将查询获得的客户信息填入表单
+                    var customer = data.customer;
+                    //当客户是公司的时候隐藏所属公司列
+                    if (customer.type == 'company'){
+                        $("#editCompany").hide();
+                    }else {
+                        $("#editCompany").show();
+                    }
+                    $("#editId").val(customer.id);
+                    $("#editUserId").val(customer.userid);
+                    $("#editType").val(customer.type);
+                    $("#editName").val(customer.name);
+                    $("#editTel").val(customer.tel);
+                    $("#editAddress").val(customer.address);
+                    $("#editWexin").val(customer.weixin);
+                    $("#editEmail").val(customer.email);
+                    $select.val(customer.companyid);
+                    $("#editLevel").val(customer.level);
+
+                    $("#editModal").modal({
+                        show:true,
+                        backdrop:'static',
+                        keyboard:false
+                    });
+                }else {
+                    alert(data.message);
+                }
+            }).fail(function () {
+                alert("服务器异常")
+            });
+        });
+        $("#editBtn").click(function () {
+            $("#editForm").submit();
+        });
+
 
         <shiro:hasRole name="经理">
         //删除客户(经理权限)
@@ -259,9 +392,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         $("#addBtn").click(function () {
             $("#addForm")[0].reset();
+            //使用Ajax加载最新的公司列表
+            $.get("/customer/company.json").done(function (data) {
+                var $select = $("#companyList select");
+                $select.html("");
+                $select.append("<option></option>");
+                if (data && data.length){
+                    for(var i = 0;i < data.length;i++){
+                        var company = data[i];
+                        var option = "<option value='"+company.id+"'>"+company.name+"</option>";
+                        $select.append(option);
+                    }
+                }
+            }).fail(function () {
+                alert("请求异常")
+            });
+
+            $("#companyList").show();
+
             $("#addModal").modal({
                 show:true,
-                dropback:'static',
+                backdrop:'static',
                 keyboard:false
             });
         });
