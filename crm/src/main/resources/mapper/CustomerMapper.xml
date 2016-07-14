@@ -6,7 +6,17 @@
     <insert id="save">
         INSERT INTO t_customer(name, tel, address, weixin, email, pinyin,companyname, companyid, level, type,userid)
         VALUES (#{name},#{tel},#{address},#{weixin},#{email},#{pinyin},#{companyname},#{companyid},#{level},#{type},#{userid})
+        by desc
     </insert>
+    <update id="update">
+        UPDATE t_customer SET name = #{name},tel = #{tel},userid = #{userid},address = #{address},weixin = #{weixin},
+        email = #{email},pinyin = #{pinyin},companyname = #{companyname},companyid = #{companyid},level = #{level},
+        type = #{type} where id = #{id}
+    </update>
+
+    <delete id="del">
+      DELETE FROM t_customer WHERE id = #{id}
+    </delete>
 
     <select id="findByParam" resultType="Customer">
         select * from t_customer
@@ -14,7 +24,11 @@
             <if test="userid != null and userid != ''">
                 userid = #{userid} or (userid = '' or userid = null)
             </if>
+            <if test="keyword != null and keyword != ''">
+                and (name like concat('%',#{keyword},'%') or pinyin like concat('%',#{keyword},'%') or tel like concat('%',#{keyword},'%'))
+            </if>
         </where>
+        ORDER BY t_customer.id desc
         limit ${start},${length}
     </select>
     
@@ -27,6 +41,9 @@
         <where>
             <if test="userid != null and userid != ''">
                 userid = #{userid} or (userid = '' or userid = null)
+            </if>
+            <if test="keyword != null and keyword !=''">
+                and (name like concat('%',#{keyword},'%') or pinyin like concat('%',#{keyword},'%') or tel like concat('%',#{keyword},'%'))
             </if>
         </where>
     </select>
@@ -41,6 +58,10 @@
 
     <select id="findCompanyLikeName" resultType="com.kaishengit.pojo.Customer">
         select * from t_customer where type = 'company' and name LIKE concat('%',#{keyword},'%')
+    </select>
+
+    <select id="findByCompanyId" resultType="com.kaishengit.pojo.Customer">
+        SELECT * FROM t_customer WHERE companyid = #{id}
     </select>
 
 </mapper>

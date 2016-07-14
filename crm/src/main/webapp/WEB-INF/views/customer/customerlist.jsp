@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -60,7 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <th>微信</th>
                             <th>电子邮箱</th>
                             <th>客户等级</th>
-                            <th>操作</th>
+                            <th style="width: 80px">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -183,9 +184,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {"data":"address"},
                 {"data":"weixin"},
                 {"data":"email"},
-                {"data":"level"},
-                {"data":function () {
-                    return "";
+                {"data":function (row) {
+                    return "<span style='color: #f6d828;'>"+row.level+"</span>"
+                }},
+                {"data": function (row) {
+                    return "<a href='javascript:;' rel='"+row.id+"' class='editLink'>修改</a>"<shiro:hasRole name="经理"> + " | <a href='javascript:;' rel='"+row.id+"' class='delLink'>删除</a>"  </shiro:hasRole>;
                 }}
             ],
             "language": { //定义中文
@@ -235,6 +238,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 });
             }
         });
+
+        //修改客户信息
+
+        <shiro:hasRole name="经理">
+        //删除客户(经理权限)
+        $(document).delegate(".delLink","click", function () {
+           if (confirm("删除客户会删除其关联的数据，是否删除？")){
+               var id = $(this).attr("rel");
+               $.get("/customer/del/"+id).done(function (data) {
+                   if (data == "success"){
+                       dataTable.ajax.reload();
+                   }
+               }).fail(function () {
+                   alert("删除失败");
+               });
+           }
+        });
+        </shiro:hasRole>
+
         $("#addBtn").click(function () {
             $("#addForm")[0].reset();
             $("#addModal").modal({

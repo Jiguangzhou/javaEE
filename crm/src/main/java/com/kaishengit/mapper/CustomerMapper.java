@@ -20,4 +20,10 @@ public interface CustomerMapper {
     Customer findById(Integer id);
 
     List<Customer> findCompanyLikeName(String keyword);
+
+    List<Customer> findByCompanyId(Integer id);
+
+    void update(Customer cust);
+
+    void del(Integer id);
 }
