@@ -5,6 +5,7 @@ import com.kaishengit.mapper.CustomerMapper;
 import com.kaishengit.pojo.Customer;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -155,5 +156,33 @@ public class CustomerService {
     public void remCustomer(Customer customer, Integer userid) {
         customer.setUserid(userid);
         customerMapper.update(customer);
+    }
+
+    /**
+     * 将客户信息生成QrCard
+     * @param id
+     * @return
+     */
+    public String qrCard(Integer id) {
+        Customer customer = customerMapper.findById(id);
+        StringBuilder qrcard = new StringBuilder("MECARD:");
+        if(StringUtils.isNotEmpty(customer.getName())) {
+            qrcard.append("N:"+customer.getName()+";");
+        }
+        if(StringUtils.isNotEmpty(customer.getTel())) {
+            qrcard.append("TEL:"+customer.getTel()+";");
+        }
+        if(StringUtils.isNotEmpty(customer.getEmail())) {
+            qrcard.append("EMAIL:"+customer.getEmail()+";");
+        }
+        if(StringUtils.isNotEmpty(customer.getAddress())) {
+            qrcard.append("ADR:"+customer.getAddress()+";");
+        }
+        if(StringUtils.isNotEmpty(customer.getCompanyname())) {
+            qrcard.append("ORG:"+customer.getCompanyname()+";");
+        }
+        qrcard.append(";");
+
+        return qrcard.toString();
     }
 }

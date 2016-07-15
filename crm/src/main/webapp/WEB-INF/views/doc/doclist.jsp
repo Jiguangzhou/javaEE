@@ -49,7 +49,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <c:if test="${fid >= 1}">
                         <button class="btn btn-primary btn-xs" id="backBtn"> 返回</button>
                     </c:if>
-
                     <div class="box-tools">
                         <div id="uploadBtn"><span class="text"><i class="fa fa-upload"></i> 上传文件</span></div>
                         <button class="btn btn-bitbucket btn-xs" id="newDir"><i class="fa fa-folder"></i> 新建文件夹</button>
@@ -187,11 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
 
         $("#backBtn").click(function () {
-            if (!fid.exists()){
-                window.location.href="/doc"
-            }else {
             window.history.go(-1);
-            }
         });
 
         $(".delLink").click(function () {
