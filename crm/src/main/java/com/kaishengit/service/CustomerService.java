@@ -6,7 +6,6 @@ import com.kaishengit.pojo.Customer;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
@@ -17,6 +16,7 @@ public class CustomerService {
 
     @Inject
     private CustomerMapper customerMapper;
+
 
     /**
      * 客户列表
@@ -126,6 +126,34 @@ public class CustomerService {
             }
         }
         customer.setPinyin(Strings.pinyin(customer.getName()));
+        customerMapper.update(customer);
+    }
+
+    /**
+     * 根据公司id查询客户
+     * @param id
+     * @return
+     */
+    public List<Customer> findCustomerByCompanyId(Integer id) {
+        return customerMapper.findByCompanyId(id);
+    }
+
+    /**
+     * 公开客户
+     * @param customer
+     */
+    public void openCustomer(Customer customer) {
+        customer.setUserid(null);
+        customerMapper.update(customer);
+    }
+
+    /**
+     * 推荐客户
+     * @param customer
+     * @param userid
+     */
+    public void remCustomer(Customer customer, Integer userid) {
+        customer.setUserid(userid);
         customerMapper.update(customer);
     }
 }

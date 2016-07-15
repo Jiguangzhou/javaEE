@@ -21,7 +21,7 @@
         select * from t_customer
         <where>
             <if test="userid != null and userid != ''">
-                userid = #{userid} or (userid = '' or userid = null)
+                userid = #{userid} or (userid = '' or userid is null)
             </if>
             <if test="keyword != null and keyword != ''">
                 and (name like concat('%',#{keyword},'%') or pinyin like concat('%',#{keyword},'%') or tel like concat('%',#{keyword},'%'))
@@ -39,7 +39,7 @@
         select count(*) FROM t_customer
         <where>
             <if test="userid != null and userid != ''">
-                userid = #{userid} or (userid = '' or userid = null)
+                userid = #{userid} or (userid = '' or userid is null)
             </if>
             <if test="keyword != null and keyword !=''">
                 and (name like concat('%',#{keyword},'%') or pinyin like concat('%',#{keyword},'%') or tel like concat('%',#{keyword},'%'))

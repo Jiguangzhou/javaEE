@@ -187,7 +187,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
 
         $("#backBtn").click(function () {
+            if (!fid.exists()){
+                window.location.href="/doc"
+            }else {
             window.history.go(-1);
+            }
         });
 
         $(".delLink").click(function () {

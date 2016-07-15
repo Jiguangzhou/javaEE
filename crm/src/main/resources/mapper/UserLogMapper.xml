@@ -19,6 +19,7 @@
             limit ${start},${length}
         </if>
     </select>
+
     <select id="countByParam" resultType="java.lang.Long">
         SELECT count(*) FROM t_userlog
         <where>
@@ -26,6 +27,10 @@
                 userid = #{userId}
             </if>
         </where>
+    </select>
+
+    <select id="findAll" resultType="User">
+        select * from t_user
     </select>
 
 </mapper>

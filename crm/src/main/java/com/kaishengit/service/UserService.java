@@ -153,4 +153,8 @@ public class UserService {
     public void editUser(User user) {
         userMapper.updateUser(user);
     }
+
+    public List<User> findAllUser() {
+        return userLogMapper.findAll();
+    }
 }

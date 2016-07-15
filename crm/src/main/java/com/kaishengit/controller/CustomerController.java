@@ -2,8 +2,13 @@ package com.kaishengit.controller;
 
 import com.google.common.collect.Maps;
 import com.kaishengit.dto.DataTablesResult;
+import com.kaishengit.exception.ForbiddenException;
+import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Customer;
+import com.kaishengit.pojo.User;
 import com.kaishengit.service.CustomerService;
+import com.kaishengit.service.UserService;
+import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +28,8 @@ public class CustomerController {
 
     @Inject
     private CustomerService customerService;
+    @Inject
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
@@ -119,5 +126,64 @@ public class CustomerController {
     public String edit(Customer customer){
         customerService.editCustomer(customer);
         return "success";
+    }
+    /**
+     * 显示客户信息
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/{id:\\d+}",method = RequestMethod.GET)
+    public String showCustomer(@PathVariable Integer id, Model model){
+        Customer customer = customerService.findCustomerById(id);
+        if (customer == null){
+            throw new NotFoundException();
+        }
+        if (customer.getUserid() != null && !customer.getUserid().equals(ShiroUtil.getCurrentUserID()) && !ShiroUtil.isManager()){
+            throw new ForbiddenException();
+        }
+        model.addAttribute("customer",customer);
+        if (customer.getType().equals(Customer.CUSTOMER_TYPE_COMPANY)){
+            List<Customer> customerList = customerService.findCustomerByCompanyId(id);
+            model.addAttribute("customerList",customerList);
+        }
+        List<User> userList = userService.findAllUser();
+        model.addAttribute("userList",userList);
+        return "customer/customerview";
+    }
+
+    /**
+     * 公开客户
+     */
+    @RequestMapping(value = "/open/{id:\\d+}",method = RequestMethod.GET)
+    public String openCustomer(@PathVariable Integer id) {
+        Customer customer = customerService.findCustomerById(id);
+        if(customer == null) {
+            throw new NotFoundException();
+        }
+        if(customer.getUserid() != null && !customer.getUserid().equals(ShiroUtil.getCurrentUserID()) && !ShiroUtil.isManager()) {
+            throw new ForbiddenException();
+        }
+        customerService.openCustomer(customer);
+        return "redirect:/customer/"+id;
+    }
+
+    /**
+     * 推荐客户
+     * @param id
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value = "/rem",method = RequestMethod.POST)
+    public String remCustomer(Integer id,Integer userid){
+        Customer customer = customerService.findCustomerById(id);
+        if (customer == null){
+            throw new NotFoundException();
+        }
+        if(customer.getUserid() != null && !customer.getUserid().equals(ShiroUtil.getCurrentUserID()) && !ShiroUtil.isManager()) {
+            throw new ForbiddenException();
+        }
+        customerService.remCustomer(customer,userid);
+        return "redirect:/customer";
     }
 }

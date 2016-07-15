@@ -1,5 +1,6 @@
 package com.kaishengit.mapper;
 
+import com.kaishengit.pojo.User;
 import com.kaishengit.pojo.UserLog;
 
 import java.util.List;
@@ -10,5 +11,8 @@ public interface UserLogMapper {
     void save(UserLog userLog);
 
     List<UserLog> findByParam(Map<String,Object> param);
+
     Long countByParam(Map<String,Object> param);
+
+    List<User> findAll();
 }

@@ -227,16 +227,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }},
                 {"data": function (row) {
                     if (row.companyname){
-                        return row.name +"-"+row.companyname;
+                        return '<a href="/customer/'+row.id+'">'+row.name+'</a>' + " - " + '<a href="/customer/'+row.companyid+'">'+row.companyname+'</a>';
                     }
-                    return row.name;
+                    return '<a href="/customer/'+row.id+'">'+row.name+'</a>';
                 }},
                 {"data":"tel"},
                 {"data":"address"},
                 {"data":"weixin"},
                 {"data":"email"},
                 {"data":function (row) {
-                    return "<span style='color: #f6d828;'>"+row.level+"</span>"
+                    return "<span style='color: #f6d828'>"+row.level+"</span>"
                 }},
                 {"data": function (row) {
                     return "<a href='javascript:;' rel='"+row.id+"' class='editLink'>修改</a>"<shiro:hasRole name="经理"> + " | <a href='javascript:;' rel='"+row.id+"' class='delLink'>删除</a>"  </shiro:hasRole>;
