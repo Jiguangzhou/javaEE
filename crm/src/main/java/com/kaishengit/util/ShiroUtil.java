@@ -1,5 +1,6 @@
 package com.kaishengit.util;
 
+import com.kaishengit.pojo.Customer;
 import com.kaishengit.pojo.User;
 import org.apache.shiro.SecurityUtils;
 

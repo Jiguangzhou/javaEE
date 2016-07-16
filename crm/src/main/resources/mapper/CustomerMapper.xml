@@ -63,4 +63,13 @@
         SELECT * FROM t_customer WHERE companyid = #{id}
     </select>
 
+    <select id="findAll" resultType="com.kaishengit.pojo.Customer">
+        SELECT * FROM t_customer
+        <where>
+        <if test="userid != null and userid != ''">
+            userid = #{userid}
+        </if>
+        </where>
+    </select>
+
 </mapper>

@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DreamCRM</title>
+    <title>DreamCRM-业务详情</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -28,28 +28,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
     <%@include file="../include/header.jsp"%>
-    <jsp:include page="../include/leftSide.jsp">
-        <jsp:param name="menu" value="project"/>
-    </jsp:include>
+    <%@include file="../include/leftSide.jsp"%>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                首页
-                <small>客户关系管理系统</small>
-            </h1>
+            <h1>　　</h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
+                <li><a href="/sale"><i class="fa fa-dashboard"></i> 业务列表</a></li>
+                <li class="active">业务详情</li>
             </ol>
         </section>
-
         <!-- Main content -->
         <section class="content">
-
-            <!-- Your Page Content Here -->
 
         </section>
         <!-- /.content -->
