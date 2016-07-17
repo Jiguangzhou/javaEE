@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class SaleLog implements Serializable {
+    public static final String LOG_TYPE_AUTO = "auto";
+    public static final String LOG_TYPE_INPUT = "input";
 
     private Integer id;
     private Integer saleid;
@@ -51,4 +53,5 @@ public class SaleLog implements Serializable {
     public void setCreatetime(Timestamp createtime) {
         this.createtime = createtime;
     }
+
 }

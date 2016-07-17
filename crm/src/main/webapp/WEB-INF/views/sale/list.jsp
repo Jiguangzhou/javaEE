@@ -52,19 +52,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
                 <div class="box-body">
-                    <form class="form-inline">
+                    <form class="form-inline" method="get">
                         <input type="hidden" id="search_start_time">
                         <input type="hidden" id="search_end_time">
-                        <input type="text" class="form-control" id="searchName" placeholder="业务名称">
-                        <select class="form-control" id="searchProgress">
+                        <input type="text" class="form-control" name="salename" id="searchName" placeholder="业务名称">
+                        <select class="form-control" id="searchProgress" name="progress">
                             <option value="">当前进度</option>
                             <option value="初次接触">初次接触</option>
                             <option value="确认意向">确认意向</option>
                             <option value="提供合同">提供合同</option>
-                            <option value="完成交易">完成交易</option>
+                            <option value="交易完成">交易完成</option>
                             <option value="交易搁置">交易搁置</option>
                         </select>
-                        <input type="text" id="rangepicker" class="form-control" placeholder="跟进时间">
+                        <input type="text" id="Date" class="form-control" placeholder="跟进时间">
                         <button type="button" id="searchBtn" class="btn btn-default"><i class="fa fa-search"></i> 搜索
                         </button>
                     </form>
@@ -125,9 +125,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <label>跟进情况</label>
                         <select name="progress" class="form-control">
                             <option value="初次接触">初次接触</option>
-                            <option value=" 确认意向">确认意向</option>
+                            <option value="确认意向">确认意向</option>
                             <option value="提供合同">提供合同</option>
-                            <option value="交易完成">完成交易</option>
+                            <option value="交易完成">交易完成</option>
                             <option value="交易搁置">交易搁置</option>
                         </select>
                     </div>
@@ -169,11 +169,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             ordering: false,
             searching: false,
             "autoWidth": false,
-            ajax: "/sale/load",
+//            ajax: "/sale/load",
+            ajax:{
+                url:"/sale/load",
+                data:function(dataS){
+                    dataS.salename=$("#searchName").val();
+                    dataS.progress=$("#searchProgress").val();
+                    dataS.startdate=$("#search_start_time").val();
+                    dataS.enddate=$("#search_end_time").val();
+                }
+            },
             columns: [
                 {
                     "data": function (row) {
-                        return "<a href='/sales/" + row.id + "'>" + row.name + "</a>";
+                        return "<a href='/sale/" + row.id + "'>" + row.name + "</a>";
                     }
                 },
                 {
@@ -181,8 +190,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         return "￥" + row.price;
                     }
                 },
-                {"data": function (row) {
-                        if (row.progress == '完成交易') {
+                {
+                    "data": function (row) {
+                        if (row.progress == '交易完成') {
                             return "<span class='label label-success'>" + row.progress + "</span>";
                         }
                         if (row.progress == '交易搁置') {
@@ -217,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
 
         //新建业务
-        $("#newForm").validate({
+        $("#addForm").validate({
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
@@ -233,30 +243,78 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     required: "请输入业务名称"
                 },
                 price: {
-                    required: "请输入价值"
+                    required: "请输入价格"
                 }
             },
             submitHandler: function (form) {
-                $.post("/sales/add", $(form).serialize()).done(function (data) {
+                $.post("/sale/add", $(form).serialize()).done(function (data) {
                     if (data == "success") {
-                        $("#newModal").modal('hide');
+                        $("#addModal").modal('hide');
+                        dataTable.ajax.reload();
                     }
                 }).fail(function () {
                     alert("服务器异常");
                 });
             }
         });
-        $("#newBtn").click(function () {
-            $("#newForm")[0].reset();
-            $("#newModal").modal({
+        $("#addBtn").click(function () {
+            $("#addForm")[0].reset();
+            $("#addModal").modal({
                 show: true,
-                backdrop: 'static'
+                backdrop: 'static',
+                keyboard: false
             });
         });
         $("#saveBtn").click(function () {
-            $("#newForm").submit();
+            $("#addForm").submit();
         });
-    });
+
+        //搜索
+        $("#searchBtn").click(function () {
+            dataTable.ajax.reload();
+        });
+
+        //daterangepicker
+        $("#Date").daterangepicker({
+            format: "YYYY-MM-DD",
+            locale: {
+                "applyLabel": "选择",
+                "cancelLabel": "取消",
+                "fromLabel": "从",
+                "toLabel": "到",
+                "customRangeLabel": "自定义",
+                "weekLabel": "周",
+                "daysOfWeek": [
+                    "一",
+                    "二",
+                    "三",
+                    "四",
+                    "五",
+                    "六",
+                    "日"
+                ],
+                "monthNames": [
+                    "一月",
+                    "二月",
+                    "三月",
+                    "四月",
+                    "五月",
+                    "六月",
+                    "七月",
+                    "八月",
+                    "九月",
+                    "十月",
+                    "十一月",
+                    "十二月"
+                ],
+                "firstDay": 1
+            }
+        });
+        $('#Date').on('apply.daterangepicker', function(ev, picker) {
+            $("#search_start_time").val(picker.startDate.format('YYYY-MM-DD'));
+            $("#search_end_time").val(picker.endDate.format('YYYY-MM-DD'));
+        });
+        });
 </script>
 </body>
 </html>

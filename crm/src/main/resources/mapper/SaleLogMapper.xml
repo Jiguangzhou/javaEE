@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaishengit.mapper.SaleLogMapper">
+
+    <cache/>
+
+    <insert id="save">
+        INSERT INTO t_sale_log(context,type,saleid) VALUES (#{context},#{type},#{saleid})
+    </insert>
+
+    <delete id="del">
+        delete from t_sale_log where id IN (
+        <foreach collection="list" item="log" separator=",">
+            #{log.id}
+        </foreach>
+        )
+    </delete>
+
+    <select id="findBySaleId" resultType="SaleLog">
+        SELECT * FROM t_sale_log WHERE saleid = #{saleid} order by id desc
+    </select>
+
+</mapper>

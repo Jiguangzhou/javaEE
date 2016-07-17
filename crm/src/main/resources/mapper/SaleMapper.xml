@@ -3,16 +3,35 @@
 <mapper namespace="com.kaishengit.mapper.SaleMapper">
 
     <cache/>
-    <insert id="save">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO t_sale(name, price, progress, userid, customerid, customername, username, lasttime, successtime)
         VALUES (#{name},#{price},#{progress},#{userid},#{customerid},#{customername},#{username},#{lasttime},#{successtime})
     </insert>
+
+    <update id="update">
+        UPDATE t_sale set progress = #{progress},lasttime = #{lasttime},successtime = #{successtime} where id = #{id}
+    </update>
+    <delete id="del">
+         DELETE FROM t_sale WHERE id = #{id}
+    </delete>
 
     <select id="findByParam" resultType="Sale">
         SELECT * FROM t_sale
         <where>
             <if test="userid != null and userid != ''">
                 userid = #{userid}
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="progress != null and progress != ''">
+                and progress = #{progress}
+            </if>
+            <if test="startdate != null and startdate != ''">
+                and date(lasttime) >= #{startdate}
+            </if>
+            <if test="enddate != null and enddate != ''">
+                and date(lasttime) &lt;= #{enddate}
             </if>
         </where>
         order by id desc
@@ -25,7 +44,27 @@
             <if test="userid != null and userid != ''">
                 userid = #{userid}
             </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="progress != null and progress != ''">
+                and progress = #{progress}
+            </if>
+            <if test="startdate != null and startdate != ''">
+                and date(lasttime) >= #{startdate}
+            </if>
+            <if test="enddate != null and enddate != ''">
+                and date(lasttime) &lt;= #{enddate}
+            </if>
         </where>
+    </select>
+
+    <select id="findByCustomerId" resultType="com.kaishengit.pojo.Sale">
+        SELECT * FROM t_sale WHERE customerid = #{customerid}
+    </select>
+
+    <select id="findById" resultType="com.kaishengit.pojo.Sale">
+        select * from t_sale WHERE id = #{id}
     </select>
 
 </mapper>

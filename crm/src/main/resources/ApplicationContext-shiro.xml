@@ -21,6 +21,7 @@
                 /notice/newnotice = roles[经理]
                 /doc/*/del = roles[经理]
                 /customer/del/** = roles[经理]
+                /sale/del/** = roles[经理]
                 /** = authc
             </value>
         </property>

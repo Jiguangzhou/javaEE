@@ -27,5 +27,6 @@ public interface CustomerMapper {
 
     void del(Integer id);
 
-    List<Customer> findAll(Integer userid);
+    List<Customer> findAll(Map<String, Object> userid);
+
 }

@@ -11,8 +11,10 @@ import com.kaishengit.dto.DataTablesResult;
 import com.kaishengit.exception.ForbiddenException;
 import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Customer;
+import com.kaishengit.pojo.Sale;
 import com.kaishengit.pojo.User;
 import com.kaishengit.service.CustomerService;
+import com.kaishengit.service.SaleService;
 import com.kaishengit.service.UserService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
@@ -39,6 +41,8 @@ public class CustomerController {
     private CustomerService customerService;
     @Inject
     private UserService userService;
+    @Inject
+    private SaleService saleService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
@@ -149,15 +153,25 @@ public class CustomerController {
             throw new NotFoundException();
         }
         if (customer.getUserid() != null && !customer.getUserid().equals(ShiroUtil.getCurrentUserID()) && !ShiroUtil.isManager()){
-            throw new ForbiddenException();
+
+         return "error/403";
+      //     throw new ForbiddenException();
         }
         model.addAttribute("customer",customer);
         if (customer.getType().equals(Customer.CUSTOMER_TYPE_COMPANY)){
             List<Customer> customerList = customerService.findCustomerByCompanyId(id);
             model.addAttribute("customerList",customerList);
         }
+        /**
+         * 显示所有的员工
+         */
         List<User> userList = userService.findAllUser();
         model.addAttribute("userList",userList);
+        /**
+         * 显示员工所对应的业务
+         */
+        List<Sale> salesList = saleService.findSaleByCustomerId(id);
+        model.addAttribute("salesList",salesList);
         return "customer/customerview";
     }
 
@@ -217,4 +231,6 @@ public class CustomerController {
         outputStream.flush();
         outputStream.close();
     }
+
+
 }

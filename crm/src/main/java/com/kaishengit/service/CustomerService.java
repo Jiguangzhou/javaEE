@@ -5,6 +5,7 @@ import com.kaishengit.mapper.CustomerMapper;
 import com.kaishengit.pojo.Customer;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
@@ -186,15 +187,4 @@ public class CustomerService {
         return qrcard.toString();
     }
 
-    /**
-     * 查找所有的客户
-     * @return
-     */
-    public List<Customer> findAllCustomer() {
-        Integer userid = null;
-        if (ShiroUtil.isEmployee()){
-            userid = ShiroUtil.getCurrentUserID();
-        }
-        return customerMapper.findAll(userid);
-    }
 }
