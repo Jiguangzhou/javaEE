@@ -49,6 +49,7 @@ public class SaleService {
         if (ShiroUtil.isEmployee()){
             param.put("userid",ShiroUtil.getCurrentUserID());
         }
+
         return saleMapper.countByParam(param);
     }
 

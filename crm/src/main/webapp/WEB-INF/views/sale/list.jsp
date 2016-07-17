@@ -53,8 +53,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <div class="box-body">
                     <form class="form-inline" method="get">
-                        <input type="hidden" id="search_start_time">
-                        <input type="hidden" id="search_end_time">
+                        <input type="hidden" id="search_starttime">
+                        <input type="hidden" id="search_endtime">
                         <input type="text" class="form-control" name="salename" id="searchName" placeholder="业务名称">
                         <select class="form-control" id="searchProgress" name="progress">
                             <option value="">当前进度</option>
@@ -175,8 +175,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 data:function(dataS){
                     dataS.salename=$("#searchName").val();
                     dataS.progress=$("#searchProgress").val();
-                    dataS.startdate=$("#search_start_time").val();
-                    dataS.enddate=$("#search_end_time").val();
+                    dataS.startdate=$("#search_starttime").val();
+                    dataS.enddate=$("#search_endtime").val();
                 }
             },
             columns: [
@@ -311,8 +311,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
         });
         $('#Date').on('apply.daterangepicker', function(ev, picker) {
-            $("#search_start_time").val(picker.startDate.format('YYYY-MM-DD'));
-            $("#search_end_time").val(picker.endDate.format('YYYY-MM-DD'));
+            $("#search_starttime").val(picker.startDate.format('YYYY-MM-DD'));
+            $("#search_endtime").val(picker.endDate.format('YYYY-MM-DD'));
         });
         });
 </script>

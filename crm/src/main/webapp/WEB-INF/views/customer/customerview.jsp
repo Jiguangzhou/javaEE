@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -102,10 +103,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-md-8">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-list"></i>项目列表</h3>
+                            <h3 class="box-title"><i class="fa fa-list"></i>业务列表</h3>
                         </div>
                         <div class="box-body">
-                            <h5>暂无项目</h5>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>业务名称</th>
+                                    <th>价格</th>
+                                    <th>当前跟进</th>
+                                    <th>最后跟进时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${salesList}" var="sale">
+                                        <tr>
+                                            <td><a href="/sale/${sale.id}" target="_blank">${sale.name}</a></td>
+                                            <td>￥<fmt:formatNumber value="${sale.price}"/></td>
+                                            <td>${sale.progress}</td>
+                                            <td>${sale.lasttime}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
