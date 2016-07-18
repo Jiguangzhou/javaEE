@@ -6,7 +6,9 @@ import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Sale;
 import com.kaishengit.pojo.SaleDoc;
 import com.kaishengit.pojo.SaleLog;
+import com.kaishengit.pojo.Task;
 import com.kaishengit.service.SaleService;
+import com.kaishengit.service.TaskService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +37,8 @@ public class SaleController {
     private SaleService saleService;
     @Value("${imagePath}")
     private String savePath;
+    @Inject
+    private TaskService taskService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
@@ -177,4 +181,5 @@ public class SaleController {
         return ResponseEntity.ok().contentLength(saleDoc.getSize()).contentType(MediaType.parseMediaType(saleDoc.getContenttype())).header("Content-Disposition","attachment;filename=\""+fileName+"\"").body(new InputStreamResource(inputStream));
 
     }
+
 }

@@ -22,6 +22,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
 
     <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="/static/plugins/colorpicker/bootstrap-colorpicker.css">
+    <link rel="stylesheet" href="/static/plugins/datepicker/datepicker3.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -143,7 +145,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-calendar-check-o"></i>代办事项</h3>
+                            <h3 class="box-title"><i class="fa fa-calendar-check-o"></i>待办事项</h3>
+                            <div class="box-tools">
+                                <button class="btn btn-default btn-xs" id="addTask"><i class="fa fa-plus"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <h5>暂无事项</h5>
@@ -185,13 +190,78 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- REQUIRED JS SCRIPTS -->
-
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加待办事项</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" action="/task/add" method="post">
+                    <div class="form-group">
+                        <label>待办内容</label>
+                        <input type="text" class="form-control" name="title" id="taskTitle">
+                    </div>
+                    <div class="form-group">
+                        <label>开始日期</label>
+                        <input type="text" class="form-control" name="start" id="startTime">
+                    </div>
+                    <div class="form-group">
+                        <label>结束日期</label>
+                        <input type="text" class="form-control" name="end" id="endTime">
+                    </div>
+                    <div class="form-group">
+                        <label>提醒时间</label>
+                        <div>
+                            <select name="hour" style="width: 100px">
+                                <option value="0">0</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                                <option value="22">22</option>
+                            </select>
+                            :
+                            <select name="min" style="width: 100px">
+                                <option value="0">0</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable>文本颜色</lable>
+                        <input type="text" class="form-control" name="color" id="color" value="#ffff">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="addBtn">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- jQuery 2.2.3 -->
 <script src="/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/static/dist/js/app.min.js"></script>
+<script src="/static/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/static/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="/static/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 <script>
     $(function () {
        //公开客户
@@ -217,6 +287,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#backBtn").click(function () {
             window.location.href="/customer";
         });
+
+        //新建事项
+        $("#color").colorpicker({
+            color:'#fffff'
+        });
+        $("#startTime,#endTime").datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose:true,
+            language:'zh-CN',
+            todayHighlight:true
+        });
+
+        $("#addTask").click(function(){
+            $("#addModal").modal({
+                show:true,
+                backdrop:'static'
+            });
+        });
+        $("#addBtn").click(function(){
+            $("#addForm").submit();
+        });
+
     });
 </script>
 </body>

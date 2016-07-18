@@ -12,9 +12,11 @@ import com.kaishengit.exception.ForbiddenException;
 import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Customer;
 import com.kaishengit.pojo.Sale;
+import com.kaishengit.pojo.Task;
 import com.kaishengit.pojo.User;
 import com.kaishengit.service.CustomerService;
 import com.kaishengit.service.SaleService;
+import com.kaishengit.service.TaskService;
 import com.kaishengit.service.UserService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
@@ -43,6 +45,8 @@ public class CustomerController {
     private UserService userService;
     @Inject
     private SaleService saleService;
+    @Inject
+    private TaskService taskService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
@@ -231,6 +235,5 @@ public class CustomerController {
         outputStream.flush();
         outputStream.close();
     }
-
 
 }
