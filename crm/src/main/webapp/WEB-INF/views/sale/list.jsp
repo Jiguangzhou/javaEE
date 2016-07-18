@@ -210,7 +210,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {"data": "username"}
             ],
 
-            "language": { //定义中文
+            "language": {
+                //定义中文
                 "zeroRecords": "没有匹配的数据",
                 "lengthMenu": "显示 _MENU_ 条数据",
                 "info": "显示从 _START_ 到 _END_ 条数据 共 _TOTAL_ 条数据",

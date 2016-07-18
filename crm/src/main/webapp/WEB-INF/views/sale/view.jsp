@@ -22,13 +22,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
     <link rel="stylesheet" href="/static/plugins/simditor/styles/simditor.css">
+    <link rel="stylesheet" href="/static/plugins/webuploader/webuploader.css">
 
     <style>
-        .timeline>li>.timeline-item{
-            box-shadow:none;
-            -webkit-box-shadow:none;
+        .timeline > li > .timeline-item {
+            box-shadow: none;
+            -webkit-box-shadow: none;
         }
-        .files li{
+
+        .files li {
             padding: 5px;
         }
     </style>
@@ -36,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-    <%@include file="../include/header.jsp"%>
+    <%@include file="../include/header.jsp" %>
     <jsp:include page="../include/leftSide.jsp">
         <jsp:param name="menu" value="sale"/>
     </jsp:include>
@@ -58,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <h3 class="box-title">${sale.name}</h3>
                     <shiro:hasRole name="经理">
                         <div class="box-tools">
-                            <button class="btn btn-danger btn-xs"  id="delBtn"><i class="fa fa-trash"></i> 删除</button>
+                            <button class="btn btn-danger btn-xs" id="delBtn"><i class="fa fa-trash"></i> 删除</button>
                         </div>
                     </shiro:hasRole>
                 </div>
@@ -67,9 +69,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <tbody>
                         <tr>
                             <td style="width: 100px">关联客户</td>
-                            <td style="width: 200px"><a href="/customer/${sale.customerid}" target="_blank">${sale.customername}</a></td>
+                            <td style="width: 200px"><a href="/customer/${sale.customerid}"
+                                                        target="_blank">${sale.customername}</a></td>
                             <td style="width: 100px">价值</td>
-                            <td style="width: 200px">￥<fmt:formatNumber value="${sale.price}"/> </td>
+                            <td style="width: 200px">￥<fmt:formatNumber value="${sale.price}"/></td>
                         </tr>
                         <tr>
                             <td>跟进情况</td>
@@ -88,7 +91,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="box-header with-border">
                             <h3 class="box-title">跟进记录</h3>
                             <div class="box-tools">
-                                <button class="btn btn-xs btn-success" id="addLogBtn"><i class="fa fa-plus"></i> 新增记录</button>
+                                <button class="btn btn-xs btn-success" id="addLogBtn"><i class="fa fa-plus"></i> 新增记录
+                                </button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -118,31 +122,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </div>
                     </div>
-
+                </div>
+                <div class="col-md-4">
+                    <div class="box box-default">
+                        <div class="box-header">
+                            <h3 class="box-title"><i class="fa fa-file-o"></i>相关资料</h3>
+                            <div class="box-tools">
+                                <div id="uploadBtn"><span class="text"><i class="fa fa-upload"></i></span></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <ul class="list-unstyled file">
+                                <c:if test="${empty saleDocList}">
+                                    暂无资料
+                                </c:if>
+                                <c:forEach items="${saleDocList}" var="saleDoc">
+                                    <li><a href="">${saleDoc.name}</a></li>
+                                </c:forEach>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="box box-default">
-                            <div class="box-header with-border">
-                                <h3 class="box-title"><i class="fa fa-calendar-check-o"></i> 代办事项</h3>
-                            </div>
-                            <div class="box-body">
-                                <h5>暂无代办事项</h5>
-                            </div>
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-calendar-check-o"></i> 待办事项</h3>
+                        </div>
+                        <div class="box-body">
+                            <h5>暂无待办事项</h5>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
-<!-- ./wrapper -->
 <div class="modal fade" id="addLogModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">添加跟进</h4>
             </div>
             <div class="modal-body">
@@ -165,7 +186,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">修改进度</h4>
             </div>
             <div class="modal-body">
@@ -201,26 +223,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/static/plugins/simditor/scripts/hotkeys.min.js"></script>
 <script src="/static/plugins/simditor/scripts/uploader.min.js"></script>
 <script src="/static/plugins/simditor/scripts/simditor.min.js"></script>
+<script src="/static/plugins/webuploader/webuploader.min.js"></script>
 <script>
-    $(function(){
+    $(function () {
         //相对时间
         $(".timeago").timeago();
 
         var edit = new Simditor({
-            textarea:$("#context"),
+            textarea: $("#context"),
             placeholder: '请输入跟进内容',
-            toolbar:false
+            toolbar: false
         });
         //添加跟进
-        $("#addLogBtn").click(function(){
+        $("#addLogBtn").click(function () {
             $("#addLogModal").modal({
-                show:true,
-                backdrop:'static',
-                keyboard:false
+                show: true,
+                backdrop: 'static',
+                keyboard: false
             });
         });
-        $("#saveLogBtn").click(function(){
-            if(edit.getValue()) {
+        $("#saveLogBtn").click(function () {
+            if (edit.getValue()) {
                 $("#addLogForm").submit();
             } else {
                 edit.focus();
@@ -229,9 +252,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         //修改跟进情况
         $("#editProgress").click(function () {
             $("#editProModal").modal({
-                show:true,
-                backdrop:'static',
-                keyboard:false
+                show: true,
+                backdrop: 'static',
+                keyboard: false
             });
         });
         $("#saveProBtn").click(function () {
@@ -241,11 +264,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
         //删除业务(经理权限)
         <shiro:hasRole name="经理">
         $("#delBtn").click(function () {
-            if (confirm("确认要删除这项业务么？")){
+            if (confirm("确认要删除这项业务么？")) {
                 window.location.href = "/sale/del/${sale.id}";
             }
         });
         </shiro:hasRole>
+
+        //文件的上传
+        var uploader = WebUploader.create({
+            swf: "/static/plugins/webuploader/Uploader.swf",
+            pick: "#uploadBtn",
+            server: "/sale/upload",
+            fileValL: "file",
+            formData: {"saleid":"${sale.id}"},
+            auto: true
+        });
+        //文件上传结果
+        uploader.on("startUpload",function(){
+            $("#uploadBtn .text").html('<i class="fa fa-spinner fa-spin"></i>');
+        });
+        uploader.on('uploadSuccess', function( file,data ) {
+            if(data._raw == "success") {
+                window.history.go(0);
+            }
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert("上传失败");
+        });
+        uploader.on( 'uploadComplete', function( file ) {
+            $("#uploadBtn .text").html('<i class="fa fa-upload"></i>').removeAttr("disabled");
+        });
     });
 </script>
 </body>

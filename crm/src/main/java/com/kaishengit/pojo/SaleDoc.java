@@ -11,7 +11,7 @@ public class SaleDoc implements Serializable {
     private String filename;
     private String contenttype;
     private Timestamp createtime;
-    private String size;
+    private Long size;
 
     public Integer getId() {
         return id;
@@ -61,11 +61,11 @@ public class SaleDoc implements Serializable {
         this.createtime = createtime;
     }
 
-    public String getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 }

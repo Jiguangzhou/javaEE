@@ -182,7 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             alert("上传文件失败");
         });
         upload.on('uploadComplete', function (file) {
-            $("#uploadBtn .text").html('<i class="fa fa-upload"></i>上传文件').removeAttr("disabled");;
+            $("#uploadBtn .text").html('<i class="fa fa-upload"></i>上传文件').removeAttr("disabled");
         });
 
         $("#backBtn").click(function () {

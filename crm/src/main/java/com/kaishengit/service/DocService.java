@@ -7,10 +7,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,7 +59,7 @@ public class DocService {
         }
         String newFileName = UUID.randomUUID().toString() + extName;
         try {
-            FileOutputStream outputStream = new FileOutputStream(new java.io.File(savePath,newFileName));
+            FileOutputStream outputStream = new FileOutputStream(new File(savePath,newFileName));
             IOUtils.copy(inputStream,outputStream);
             outputStream.flush();
             outputStream.close();

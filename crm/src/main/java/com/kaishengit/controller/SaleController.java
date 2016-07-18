@@ -4,20 +4,26 @@ import com.google.common.collect.Maps;
 import com.kaishengit.dto.DataTablesResult;
 import com.kaishengit.exception.NotFoundException;
 import com.kaishengit.pojo.Sale;
+import com.kaishengit.pojo.SaleDoc;
 import com.kaishengit.pojo.SaleLog;
-import com.kaishengit.service.CustomerService;
 import com.kaishengit.service.SaleService;
 import com.kaishengit.util.ShiroUtil;
 import com.kaishengit.util.Strings;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +33,8 @@ public class SaleController {
 
     @Inject
     private SaleService saleService;
+    @Value("${imagePath}")
+    private String savePath;
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
@@ -95,6 +103,9 @@ public class SaleController {
         //查看跟进的记录
         List<SaleLog> saleLogList = saleService.findSaleLogById(id);
         model.addAttribute(saleLogList);
+        //查找业务文件
+        List<SaleDoc> saleDocList = saleService.findSaleDocBySaleId(id);
+        model.addAttribute(saleDocList);
         return "sale/view";
     }
 
@@ -130,5 +141,40 @@ public class SaleController {
     public String delSale(@PathVariable Integer id){
         saleService.delSale(id);
         return "redirect:/sale";
+    }
+
+    /**
+     * 上传相关资料
+     * @param file
+     * @param saleid
+     * @return
+     */
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    @ResponseBody
+    public String upload(MultipartFile file,Integer saleid) throws IOException {
+        saleService.uploadDoc(file.getInputStream(),file.getOriginalFilename(),file.getContentType(),file.getSize(),saleid);
+        return "success";
+    }
+
+    /**
+     * 文件下载
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id:\\d+}/download",method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> download(@PathVariable Integer id) throws UnsupportedEncodingException, FileNotFoundException {
+        SaleDoc saleDoc = saleService.findSaleDocById(id);
+        if(saleDoc == null) {
+            throw new NotFoundException();
+        }
+        File file = new File(savePath,saleDoc.getFilename());
+        if(!file.exists()) {
+            throw new NotFoundException();
+        }
+        FileInputStream inputStream = new FileInputStream(file);
+        String fileName = saleDoc.getName();
+        fileName = new String(fileName.getBytes("UTF-8"),"ISO8859-1");
+        return ResponseEntity.ok().contentLength(saleDoc.getSize()).contentType(MediaType.parseMediaType(saleDoc.getContenttype())).header("Content-Disposition","attachment;filename=\""+fileName+"\"").body(new InputStreamResource(inputStream));
+
     }
 }

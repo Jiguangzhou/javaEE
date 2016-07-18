@@ -2,29 +2,42 @@ package com.kaishengit.service;
 
 import com.google.common.collect.Maps;
 import com.kaishengit.mapper.CustomerMapper;
+import com.kaishengit.mapper.SaleDocMapper;
 import com.kaishengit.mapper.SaleLogMapper;
 import com.kaishengit.mapper.SaleMapper;
 import com.kaishengit.pojo.Customer;
 import com.kaishengit.pojo.Sale;
+import com.kaishengit.pojo.SaleDoc;
 import com.kaishengit.pojo.SaleLog;
 import com.kaishengit.util.ShiroUtil;
+import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Named
 public class SaleService {
 
+    @Value("${imagePath}")
+    private String savePath;
     @Inject
     private SaleMapper saleMapper;
     @Inject
     private CustomerMapper customerMapper;
     @Inject
     private SaleLogMapper saleLogMapper;
+    @Inject
+    private SaleDocMapper saleDocMapper;
     /**
      * 业务列表
      * @param param
@@ -166,5 +179,52 @@ public class SaleService {
         }
         //删除业务
         saleMapper.del(id);
+    }
+
+    /**
+     * 根据ID查找业务的文件
+     * @param saleid
+     * @return
+     */
+    public List<SaleDoc> findSaleDocBySaleId(Integer saleid) {
+        return saleDocMapper.findBySaleId(saleid);
+    }
+
+    /**
+     * 保存业务对应文件
+     * @param inputStream
+     * @param originalFilename
+     * @param contentType
+     * @param size
+     * @param saleid
+     */
+    @Transactional
+    public void uploadDoc(InputStream inputStream, String originalFilename, String contentType, long size, Integer saleid) {
+        String extName = "";
+        if (originalFilename.lastIndexOf(".") != -1) {
+            extName = originalFilename.substring(originalFilename.indexOf("."));
+        }
+        String newName = UUID.randomUUID().toString() + extName;
+        try {
+            FileOutputStream outputStream = new FileOutputStream(new File(savePath,newName));
+            IOUtils.copy(inputStream,outputStream);
+            outputStream.flush();
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        SaleDoc saleDoc = new SaleDoc();
+        saleDoc.setSaleid(saleid);
+        saleDoc.setName(originalFilename);
+        saleDoc.setFilename(newName);
+        saleDoc.setContenttype(contentType);
+        saleDoc.setSize(size);
+        saleDocMapper.save(saleDoc);
+    }
+
+    public SaleDoc findSaleDocById(Integer id) {
+        return saleDocMapper.findById(id);
     }
 }
