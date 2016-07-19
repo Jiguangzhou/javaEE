@@ -199,7 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h4 class="modal-title">添加待办事项</h4>
             </div>
             <div class="modal-body">
-                <form id="addForm" action="/task/add" method="post">
+                <form id="addForm" action="/task/new" method="post">
                     <div class="form-group">
                         <label>待办内容</label>
                         <input type="text" class="form-control" name="title" id="taskTitle">
@@ -290,7 +290,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         //新建事项
         $("#color").colorpicker({
-            color:'#fffff'
+            color:'#20c6eb'
         });
         $("#startTime,#endTime").datepicker({
             format: 'yyyy-mm-dd',

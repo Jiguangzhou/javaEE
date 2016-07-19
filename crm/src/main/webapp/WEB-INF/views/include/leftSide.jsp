@@ -15,7 +15,7 @@
             <li class="${param.menu == 'notice'?'active':''}"><a href="/notice"><i class="fa fa-bullhorn"></i> <span>公告</span></a></li>
             <li class="${param.menu == 'customer'?'active':''}"><a href="/customer"><i class="fa fa-user"></i> <span>客户管理</span></a></li>
             <li class="${param.menu == 'sale'?'active':''}"><a href="/sale"><i class="fa fa-building-o"></i> <span>业务管理</span></a></li>
-            <li><a href="#"><i class="fa fa-bar-chart"></i> <span>统计</span></a></li>
+            <li class="${param.menu == 'chart'?'active':''}"><a href="/chart"><i class="fa fa-bar-chart"></i> <span>统计</span></a></li>
             <li class="${param.menu == 'task'?'active':''}"><a href="/task"><i class="fa fa-calendar"></i> <span>待办事项</span></a></li>
             <li class="${param.menu == 'doc'?'active':''}"><a href="/doc"><i class="fa fa-file-text"></i> <span>文件管理</span></a></li>
             </shiro:hasAnyRoles>

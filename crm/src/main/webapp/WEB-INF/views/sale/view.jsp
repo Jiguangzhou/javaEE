@@ -139,7 +139,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     暂无资料
                                 </c:if>
                                 <c:forEach items="${saleDocList}" var="saleDoc">
-                                    <li><a href="">${saleDoc.name}</a></li>
+                                    <li><a href="/sales/${saleDoc.id}/download">${saleDoc.name}</a></li>
                                 </c:forEach>
                             </ul>
                         </div>
@@ -287,6 +287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="/static/dist/js/app.min.js"></script>
 <script src="/static/plugins/timeago/timeago.js"></script>
+<script src="/static/plugins/timeago/timeago_zh_cn.js"></script>
 <script src="/static/plugins/simditor/scripts/module.min.js"></script>
 <script src="/static/plugins/simditor/scripts/hotkeys.min.js"></script>
 <script src="/static/plugins/simditor/scripts/uploader.min.js"></script>

@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/static/plugins/fullcalendar/fullcalendar.min.css">
     <link rel="stylesheet" href="/static/plugins/colorpicker/bootstrap-colorpicker.css">
     <style>
-        .todo-list>li .text {
+        .todo-list > li .text {
             font-weight: normal;
         }
     </style>
@@ -67,10 +67,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="todo-list">
                                 <c:forEach items="${timeoutTaskList}" var="task">
                                     <li>
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="donBtn">
                                         <span class="text">${task.title}</span>
                                         <div class="tools">
-                                            <i class="fa fa-trash-o"></i>
+                                            <i class="fa fa-trash-o" id="deBtn"></i>
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="form-group">
                         <lable>文本颜色</lable>
-                        <input type="text" class="form-control" name="color" id="color" value="#ffff">
+                        <input type="text" class="form-control" name="color" id="color" value="#20c6eb">
                     </div>
                 </form>
             </div>
@@ -153,7 +153,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">查看待办事项</h4>
             </div>
             <div class="modal-body">
@@ -165,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="form-group">
                         <label>开始日期 ~ 结束时间</label>
-                        <div><span id="event_start"></span>  ~  <span id="event_end"></span></div>
+                        <div><span id="event_start"></span> ~ <span id="event_end"></span></div>
                     </div>
                     <div class="form-group">
                         <label>提醒时间</label>
@@ -207,87 +208,89 @@ scratch. This page gets rid of all links and provides the needed markup only.
             buttonText: {
                 today: "今天"
             },
-            dayClick: function(date, jsEvent, view) {
+            dayClick: function (date, jsEvent, view) {
                 $("#addForm")[0].reset();
                 $("#start_time").val(date.format());
                 $("#end_time").val(date.format());
                 $("#addModal").modal({
-                    show:true,
-                    backdrop:'static'
+                    show: true,
+                    backdrop: 'static'
                 });
             },
-            eventClick: function(calEvent, jsEvent, view) {
+            eventClick: function (calEvent, jsEvent, view) {
                 _event = calEvent;
                 $("#event_id").val(calEvent.id);
                 $("#event_title").text(calEvent.title);
                 $("#event_start").text(moment(calEvent.start).format("YYYY-MM-DD"));
                 $("#event_end").text(moment(calEvent.end).format("YYYY-MM-DD"));
-                if(calEvent.remindertime) {
+                if (calEvent.remindertime) {
                     $("#event_remindtime").text(calEvent.remindertime);
                 } else {
                     $("#event_remindtime").text('无');
                 }
                 $("#eventModal").modal({
-                    show:true,
-                    backdrop:'static'
+                    show: true,
+                    backdrop: 'static'
                 });
             }
         });
 
         $("#color").colorpicker({
-            color:'#ffff'
+            color: '#20c6eb'
         });
         $("#start_time,#end_time").datepicker({
-            format:'yyyy-mm-dd',
-            autoclose:true,
-            language:'zh-CN',
-            todayHighlight:true
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            language: 'zh-CN',
+            todayHighlight: true
         });
         $("#saveBtn").click(function () {
-            if(!$("#task_title").val()){
+            if (!$("#task_title").val()) {
                 $("#task_title").focus();
                 return;
             }
-            if(moment($("#start_time").val()).isAfter(moment($("#end_time").val()))) {
+            if (moment($("#start_time").val()).isAfter(moment($("#end_time").val()))) {
                 alert("结束时间必须大于开始时间");
                 return;
             }
-            $.post("/task/new",$("#addForm").serialize()).done(function (result) {
-                if (result.state == "success"){
-                    $calendar.fullCalendar( 'renderEvent', result.data );
+            $.post("/task/new", $("#addForm").serialize()).done(function (result) {
+                if (result.state == "success") {
+                    $calendar.fullCalendar('renderEvent', result.data);
                     $("#addModal").modal('hide');
                 }
-            }).fail(function(){
+            }).fail(function () {
                 alert("服务器异常");
             });
         });
 
         //删除事项
-        $("#delBtn").click(function(){
+        $("#delBtn").click(function () {
             var id = $("#event_id").val();
-            if(confirm("确定要删除么")) {
-                $.get("/task/del/"+id).done(function(data){
-                    if("success" == data) {
-                        $calendar.fullCalendar('removeEvents',id);
+            if (confirm("确定要删除么")) {
+                $.get("/task/del/" + id).done(function (data) {
+                    if ("success" == data) {
+                        $calendar.fullCalendar('removeEvents', id);
                         $("#eventModal").modal('hide');
                     }
-                }).fail(function(){
+                }).fail(function () {
                     alert("服务器异常");
                 });
             }
         });
         //将事项标记为已完成
-        $("#doneBtn").click(function(){
+        $("#doneBtn").click(function () {
             var id = $("#event_id").val();
-            $.post("/task/"+id+"/done").done(function(result){
-                if(result.state == "success") {
-                    _event.color = "#fffff";
-                    $calendar.fullCalendar('updateEvent',_event);
+            if (confirm("确认标记为已完成？")){
+            $.post("/task/" + id + "/done").done(function (result) {
+                if (result.state == "success") {
+                    _event.color = "#9c977d";
+                    $calendar.fullCalendar('updateEvent', _event);
                     $("#eventModal").modal('hide');
                 }
-            }).fail(function(){
+            }).fail(function () {
                 alert("服务器异常");
             });
+            }
         });
 
     });

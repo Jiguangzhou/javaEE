@@ -24,7 +24,6 @@ public class TaskController {
     public String list(Model model){
         List<Task> timeoutTaskList = taskService.findTimeOutTask();
         model.addAttribute("timeoutTaskList",timeoutTaskList);
-
         return "task/list";
     }
 

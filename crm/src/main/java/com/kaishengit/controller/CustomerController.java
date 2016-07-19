@@ -236,4 +236,14 @@ public class CustomerController {
         outputStream.close();
     }
 
+    /**
+     * 添加待办事项
+     * @return
+     */
+    @RequestMapping(value = "/new",method = RequestMethod.POST)
+    @ResponseBody
+    public String newTask(Task task, String hour, String min){
+        taskService.save(task,hour,min);
+        return "redirect:/customer/"+task.getCustomerid();
+    }
 }

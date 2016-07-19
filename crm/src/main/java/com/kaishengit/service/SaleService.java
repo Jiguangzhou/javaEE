@@ -224,6 +224,11 @@ public class SaleService {
         saleDocMapper.save(saleDoc);
     }
 
+    /**
+     * 根据ID获取文件
+     * @param id
+     * @return
+     */
     public SaleDoc findSaleDocById(Integer id) {
         return saleDocMapper.findById(id);
     }

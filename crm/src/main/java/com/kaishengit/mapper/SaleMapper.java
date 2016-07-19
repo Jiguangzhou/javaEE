@@ -2,6 +2,7 @@ package com.kaishengit.mapper;
 
 import com.kaishengit.pojo.Sale;
 import com.kaishengit.pojo.SaleLog;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,8 @@ public interface SaleMapper {
     void update(Sale sale);
 
     void del(Integer id);
+
+    Long findStateCount(@Param("start") String start,@Param("end") String end,@Param("state") String state);
+
+    Long findStateMoney(@Param("start") String start,@Param("end") String end,@Param("state") String state);
 }

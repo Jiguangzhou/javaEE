@@ -71,4 +71,8 @@
         </if>
         </where>
     </select>
+
+    <select id="findNewCustomer" resultType="java.lang.Long">
+        select count(*) from t_customer where date(createtime) >=#{start} and date(createtime) &lt;= #{end}
+    </select>
 </mapper>

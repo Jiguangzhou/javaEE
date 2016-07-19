@@ -67,4 +67,12 @@
         select * from t_sale WHERE id = #{id}
     </select>
 
+    <select id="findStateCount" resultType="java.lang.Long">
+        SELECT count(*) FROM t_sale WHERE date(successtime) >= #{start} and date(successtime) &lt;= #{end} and progress = #{state}
+    </select>
+
+    <select id="findStateMoney" resultType="java.lang.Long">
+        select sum(price) from t_sale where date(successtime) >= #{start} and date(successtime) &lt;= #{end} and progress = #{state}
+    </select>
+
 </mapper>
