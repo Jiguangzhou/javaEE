@@ -75,4 +75,21 @@
         select sum(price) from t_sale where date(successtime) >= #{start} and date(successtime) &lt;= #{end} and progress = #{state}
     </select>
 
+    <select id="countProgress" resultType="java.util.Map">
+        SELECT types.name,(SELECT count(*) FROM t_sale where
+        date(createtime) >= #{start}
+        and date(createtime) &lt;= #{end}
+        and t_sale.progress = types.name) as 'value' FROM(
+        SELECT '交易完成' as 'name'
+        UNION SELECT '初次接触'
+        UNION SELECT '确认意向'
+        UNION SELECT '提供合同'
+        UNION SELECT '交易搁置') as types;
+    </select>
+    <select id="totalUserMoney" resultType="java.util.Map">
+        select user.realname,(select IFNULL(sum(price),0) FROM t_sale where userid = user.id and date(successtime) >= #{start}
+        and date(successtime) &lt;= #{end}) as price
+        from (select id,realname from t_user) as user
+    </select>
+
 </mapper>

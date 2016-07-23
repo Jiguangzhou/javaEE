@@ -25,4 +25,8 @@ public interface SaleMapper {
     Long findStateCount(@Param("start") String start,@Param("end") String end,@Param("state") String state);
 
     Long findStateMoney(@Param("start") String start,@Param("end") String end,@Param("state") String state);
+
+    List<Map<String,Object>> countProgress(@Param("start") String start,@Param("end") String end);
+
+    List<Map<String,Object>> totalUserMoney(@Param("start") String start,@Param("end") String end);
 }

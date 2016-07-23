@@ -67,10 +67,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="todo-list">
                                 <c:forEach items="${timeoutTaskList}" var="task">
                                     <li>
-                                        <input type="checkbox" id="donBtn">
+                                        <input type="checkbox" rel="${task.id}" id="donBtn">
                                         <span class="text">${task.title}</span>
                                         <div class="tools">
-                                            <i class="fa fa-trash-o" id="deBtn"></i>
+                                            <i class="fa fa-trash-o" rel="${task.id}" id="deBtn"></i>
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -166,7 +166,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="form-group">
                         <label>开始日期 ~ 结束时间</label>
-                        <div><span id="event_start"></span> ~ <span id="event_end"></span></div>
+                        <div><span id="event_start"></span> ~ <span id="event_end"></span>
+
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>提醒时间</label>
@@ -177,7 +179,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-danger" id="delBtn"><i class="fa fa-trash"></i> 删除</button>
-                <button type="button" class="btn btn-primary" id="doneBtn"><i class="fa fa-check"></i> 标记为已完成</button>
+                <button type="button" class="btn btn-primary" id="doneBtn"><i class="fa fa-check"></i>标记为已完成</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -277,19 +279,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 });
             }
         });
+        $("#deBtn").click(function () {
+            var id = $(this).attr("rel");
+            if (confirm("确定要删除么")) {
+                $.get("/task/del/" + id).done(function (data) {
+                    if ("success" == data) {
+                        $calendar.fullCalendar('removeEvents', id);
+                        $("#eventModal").modal('hide');
+                    }
+                }).fail(function () {
+                    alert("服务器异常");
+                });
+            }
+        });
         //将事项标记为已完成
         $("#doneBtn").click(function () {
             var id = $("#event_id").val();
-            if (confirm("确认标记为已完成？")){
-            $.post("/task/" + id + "/done").done(function (result) {
-                if (result.state == "success") {
-                    _event.color = "#9c977d";
-                    $calendar.fullCalendar('updateEvent', _event);
-                    $("#eventModal").modal('hide');
-                }
-            }).fail(function () {
-                alert("服务器异常");
-            });
+            if (confirm("确认标记为已完成？")) {
+                $.post("/task/" + id + "/done").done(function (result) {
+                    if (result.state == "success") {
+                        _event.color = "#9c977d";
+                        $calendar.fullCalendar('updateEvent', _event);
+                        $("#eventModal").modal('hide');
+                    }
+
+                }).fail(function () {
+                    alert("服务器异常");
+                });
             }
         });
 

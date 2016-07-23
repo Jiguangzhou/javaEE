@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/static/dist/js/app.min.js"></script>
-<script src="/static/plugins/echarts/echarts.simple.min.js"></script>
+<script src="/static/plugins/echarts/echarts.min.js"></script>
 <script>
     $(function () {
 
@@ -120,24 +120,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {
                     name: '业务',
                     type: 'pie',
-                    data: [
-                        {value:335, name:'初次接触'},
-                        {value:310, name:'确定意向'},
-                        {value:234, name:'提交合同'},
-                        {value:135, name:'交易完成'},
-                        {value:1548, name:'交易搁置'}
-                    ],
+                    data: [],
                     itemStyle: {
                         emphasis: {
                             shadowBlur: 10,
                             shadowOffsetX: 0,
-                            shadowColor: '#20c6eb'
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
                     }
                 }]
         };
         // 使用刚指定的配置项和数据显示图表
         pieChart.setOption(pieOption);
+        $.get("/chart/progress/data",function(data){
+            pieChart.setOption({
+                series: [{
+                    data: data
+                }]
+            });
+        });
+
         var barChart = echarts.init($("#barChart")[0]);
         var option = {
             tooltip: {},
@@ -154,7 +156,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             ]
         };
         barChart.setOption(option);
+        $.get("/chart/user/money",function(data){
+            barChart.setOption({
+                xAxis: {
+                    data: data.names
+                },
+                series: [{
+                    data: data.values
+                }]
+            });
+        });
     });
+
 </script>
 </body>
 </html>

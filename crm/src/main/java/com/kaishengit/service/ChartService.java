@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
+import java.util.Map;
 
 @Named
 public class ChartService {
@@ -65,5 +67,27 @@ public class ChartService {
             end = now.toString("yyyy-MM-dd");
         }
         return saleMapper.findStateMoney(start,end,"交易完成");
+    }
+
+    public List<Map<String, Object>> loadPieData(String start, String end) {
+        DateTime now = DateTime.now();
+        if(StringUtils.isEmpty(start)) {
+            start = now.dayOfMonth().withMinimumValue().toString("yyyy-MM-dd");
+        }
+        if(StringUtils.isEmpty(end)) {
+            end = now.toString("yyyy-MM-dd");
+        }
+        return saleMapper.countProgress(start,end);
+    }
+
+    public List<Map<String, Object>> loadBarData(String start, String end) {
+        DateTime now = DateTime.now();
+        if(StringUtils.isEmpty(start)) {
+            start = now.dayOfMonth().withMinimumValue().toString("yyyy-MM-dd");
+        }
+        if(StringUtils.isEmpty(end)) {
+            end = now.toString("yyyy-MM-dd");
+        }
+        return saleMapper.totalUserMoney(start,end);
     }
 }

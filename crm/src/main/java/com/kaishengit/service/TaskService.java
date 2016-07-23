@@ -71,9 +71,12 @@ public class TaskService {
     public Task doneTask(Integer id) {
         Task task = taskMapper.findById(id);
         task.setDone(true);
-        task.setColor("#20c6eb");
+        task.setColor("#9c977d");
         taskMapper.update(task);
         return task;
     }
 
+    public List<Task> findTaskByUserId(Integer id) {
+        return taskMapper.findByUserId(id);
+    }
 }

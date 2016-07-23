@@ -269,7 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="form-group">
                         <lable>文本颜色</lable>
-                        <input type="text" class="form-control" name="color" id="color" value="#ffff">
+                        <input type="text" class="form-control" name="color" id="color" value="#20c6eb">
                     </div>
                 </form>
             </div>

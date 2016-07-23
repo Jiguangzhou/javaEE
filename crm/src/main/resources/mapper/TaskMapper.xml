@@ -25,7 +25,7 @@
     </select>
 
     <select id="findTimeOutTask" resultType="com.kaishengit.pojo.Task">
-        SELECT * FROM t_task WHERE userid = #{userId} and date(`end`) &lt; #{today} and done = 0
+        SELECT * FROM t_task WHERE userid = #{userId} and date(`end`) &lt; #{today}
     </select>
 
     <select id="findById" resultType="com.kaishengit.pojo.Task">

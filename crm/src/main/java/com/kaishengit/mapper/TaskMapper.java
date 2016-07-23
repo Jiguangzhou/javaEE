@@ -20,4 +20,5 @@ public interface TaskMapper {
     Task findById(Integer id);
 
     void update(Task task);
+
 }

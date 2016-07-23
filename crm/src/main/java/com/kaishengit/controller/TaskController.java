@@ -3,6 +3,7 @@ package com.kaishengit.controller;
 import com.kaishengit.dto.JSONResult;
 import com.kaishengit.pojo.Task;
 import com.kaishengit.service.TaskService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +22,12 @@ public class TaskController {
     private TaskService taskService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String list(Model model){
+    public String list(Model model,Integer id){
         List<Task> timeoutTaskList = taskService.findTimeOutTask();
         model.addAttribute("timeoutTaskList",timeoutTaskList);
+
+        List<Task> taskList = taskService.findTaskByUserId(id);
+        model.addAttribute("taskList",taskList);
         return "task/list";
     }
 
