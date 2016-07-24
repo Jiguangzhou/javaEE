@@ -4,18 +4,27 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.util.List;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class JedisStringTestCase {
 
 
+    @Autowired
+    private JedisPool jedisPool;
     private Jedis jedis = null;
 
     @Before
     public void setUp(){
-        jedis = new Jedis("192.168.1.36");
+        jedis = jedisPool.getResource();
     }
 
     @After
