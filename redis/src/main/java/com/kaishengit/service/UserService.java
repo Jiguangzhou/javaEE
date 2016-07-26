@@ -21,9 +21,6 @@ public class UserService {
         return jedisPool.getResource();
     }
 
-    public void saveUser(User user){
-        Schema<User> userSchema = RuntimeSchema
-    }
 
     public User findByUserId(Integer userid){
         Jedis jedis = getJedis();

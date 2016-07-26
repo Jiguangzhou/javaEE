@@ -2,31 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9271420a-2d95-46ad-b69d-c908019b5e42" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_6_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_6_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_6_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_protostuff_protostuff_api_1_4_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_protostuff_protostuff_collectionschema_1_4_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_protostuff_protostuff_core_1_4_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_protostuff_protostuff_run_1_4_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/kaishengit/pojo/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/kaishengit/service/KeyUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/kaishengit/JsonTestCase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/kaishengit/StringRedisTemplateTestCase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/kaishengit/UserServiceTestCase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/kaishengit/JedisStringTestCase.class" afterPath="$PROJECT_DIR$/target/test-classes/com/kaishengit/JedisStringTestCase.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/kaishengit/SpringRedisTestCase.class" afterPath="$PROJECT_DIR$/target/test-classes/com/kaishengit/SpringRedisTestCase.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_protostuff_protostuff_run_1_4_4.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/redis_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/redis_war_exploded.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/redis.iml" afterPath="$PROJECT_DIR$/redis.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/kaishengit/JedisStringTestCase.java" afterPath="$PROJECT_DIR$/src/test/java/com/kaishengit/JedisStringTestCase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/kaishengit/SpringRedisTestCase.java" afterPath="$PROJECT_DIR$/src/test/java/com/kaishengit/SpringRedisTestCase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/applicationContext.xml" afterPath="$PROJECT_DIR$/target/classes/applicationContext.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java" />
     </list>
     <ignored path="redis.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,27 +40,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6642857">
-              <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
+            <state vertical-scroll-proportion="-3.7575758">
+              <caret line="82" column="29" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="47" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.36593592">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#628#629#0" expanded="true" />
                 <element signature="e#674#675#0" expanded="true" />
-                <element signature="e#712#713#0" expanded="true" />
-                <element signature="e#766#767#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,8 +118,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/kaishengit/service/KeyUtil.java" />
         <option value="$PROJECT_DIR$/src/main/resources/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/kaishengit/UserServiceTestCase.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java" />
       </list>
     </option>
   </component>
@@ -956,7 +934,7 @@
       <workItem from="1469279476209" duration="2716000" />
       <workItem from="1469286151169" duration="1488000" />
       <workItem from="1469345300454" duration="1181000" />
-      <workItem from="1469360448114" duration="10698000" />
+      <workItem from="1469360448114" duration="11212000" />
     </task>
     <servers />
   </component>
@@ -993,11 +971,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30143000" />
+    <option name="totallyTimeSpent" value="30657000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="1" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1073,8 +1051,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1100,8 +1078,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1127,8 +1105,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1154,8 +1132,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1181,8 +1159,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1208,8 +1186,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1235,8 +1213,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1254,8 +1232,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1273,8 +1251,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1306,8 +1284,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1332,8 +1310,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1358,8 +1336,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1383,11 +1361,11 @@
         <state vertical-scroll-proportion="0.6770833">
           <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#735#736#0" expanded="true" />
-            <element signature="e#805#806#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#938#939#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#735#736#0" expanded="false" />
+            <element signature="e#805#806#0" expanded="false" />
+            <element signature="e#847#848#0" expanded="false" />
+            <element signature="e#938#939#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1418,8 +1396,8 @@
         <state vertical-scroll-proportion="0.35416666">
           <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
           <folding>
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#915#916#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1429,7 +1407,7 @@
         <state vertical-scroll-proportion="0.5963542">
           <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1450,8 +1428,8 @@
         <state vertical-scroll-proportion="0.6458333">
           <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
           <folding>
-            <element signature="e#712#713#0" expanded="true" />
-            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="false" />
+            <element signature="e#759#760#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1466,20 +1444,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="47" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#628#629#0" expanded="true" />
-            <element signature="e#674#675#0" expanded="true" />
-            <element signature="e#712#713#0" expanded="true" />
-            <element signature="e#766#767#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.6363635">
@@ -1490,9 +1454,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6642857">
-          <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
+        <state vertical-scroll-proportion="-3.7575758">
+          <caret line="82" column="29" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/kaishengit/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36593592">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#628#629#0" expanded="true" />
+            <element signature="e#674#675#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
