@@ -16,10 +16,10 @@ public class OneToOneTestCase {
         session.beginTransaction();
 
         Person person = new Person();
-        person.setName("Lucy");
+        person.setName("Tom");
 
         Card card = new Card();
-        card.setCardname("VIP-103");
+        card.setCardname("VIP-101");
         card.setPerson(person);
 
         session.save(person);
@@ -32,7 +32,7 @@ public class OneToOneTestCase {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
-        Person person = (Person) session.get(Person.class,1);
+        Person person = (Person) session.get(Person.class,4);
         System.out.println(person.getName());
         System.out.println(person.getCard().getCardname());
         session.getTransaction().commit();

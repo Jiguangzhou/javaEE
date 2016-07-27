@@ -1,10 +1,24 @@
 package com.kaishengit.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.GenerationType;
+
+@Entity
+@Table(name = "t_employee")
 public class Employee {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private Integer deptid;
+
+    @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "deptid")
     private Dept dept;
 
     public Integer getId() {
@@ -21,14 +35,6 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getDeptid() {
-        return deptid;
-    }
-
-    public void setDeptid(Integer deptid) {
-        this.deptid = deptid;
     }
 
     public Dept getDept() {

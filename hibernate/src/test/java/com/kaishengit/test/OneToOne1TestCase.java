@@ -14,10 +14,10 @@ public class OneToOne1TestCase {
         session.beginTransaction();
 
         TopicContent topicContent = new TopicContent();
-        topicContent.setContent("Hello,World!");
+        topicContent.setContent("Luckly");
 
         Topic topic = new Topic();
-        topic.setTitle("Topic-1");
+        topic.setTitle("Topic-2");
         topic.setTopicContent(topicContent);
 
         session.save(topicContent);
@@ -33,8 +33,9 @@ public class OneToOne1TestCase {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
-        Topic topic = (Topic) session.get(Topic.class,1);
+        Topic topic = (Topic) session.get(Topic.class,2);
         System.out.println(topic.getTitle());
+        System.out.println(topic.getTopicContent().getContent());
 
 
         session.getTransaction().commit();

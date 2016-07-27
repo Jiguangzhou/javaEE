@@ -24,14 +24,14 @@ public class OneToManyTestCase {
         session.beginTransaction();
 
         Dept dept = new Dept();
-        dept.setDeptname("销售部");
+        dept.setDeptname("人事部");
 
         Employee employee = new Employee();
-        employee.setName("李明");
+        employee.setName("Lucy");
         employee.setDept(dept);
 
         Employee employee1 = new Employee();
-        employee1.setName("王武");
+        employee1.setName("Lily");
         employee1.setDept(dept);
 
         /*Set<Employee> employees = new HashSet<>();

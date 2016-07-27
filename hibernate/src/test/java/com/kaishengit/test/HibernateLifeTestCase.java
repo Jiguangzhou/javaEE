@@ -45,6 +45,7 @@ public class HibernateLifeTestCase {
         session.beginTransaction();
 
         User user = (User) session.get(User.class,11);
+        System.out.println(user.getUsername());
 
         session.getTransaction().commit();
     }
@@ -58,7 +59,7 @@ public class HibernateLifeTestCase {
 
         session.getTransaction().commit();
 
-        user.setUsername("Mick");
+        user.setUsername("Youyou");
 
         Session session1 = HibernateUtil.getSession();
         session1.beginTransaction();
