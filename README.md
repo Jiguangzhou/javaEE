@@ -1,3 +1,3 @@
 ﻿### Hello,Word!
 
-#### javaEE学习
+#### java学习
