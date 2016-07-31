@@ -52,7 +52,7 @@ public class HomeController {
         }catch (AuthenticationException exception) {
             redirectAttributes.addFlashAttribute("message",new FlashMessage(FlashMessage.STATE_ERROR,"账号或密码错误"));
         }
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
