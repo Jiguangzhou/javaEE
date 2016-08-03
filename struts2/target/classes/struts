@@ -1,0 +1,29 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!--修改default.properties文件默认值-->
+    <constant name="struts.action.extension" value="do"/>
+
+    <package name="myPackage" extends="struts-default">
+        <!--
+            name:url中请求的名字
+            class:Action类的完全限定名
+        -->
+        <action name="home" class="com.kaishengit.action.HomeAction">
+
+            <result name="success">/WEB-INF/views/home.jsp</result>
+        </action>
+    </package>
+
+    <package name="userPackage" namespace="/user" extends="com.kaishengit.action.UserAction">
+        <action name="new" class="com.kaishengit.action.UserAction" method="toSave">
+            <result name="success" type="dispatcher">/WEB-INF/views/users/save.jsp</result>
+        </action>
+        
+    </package>
+
+
+</struts>
